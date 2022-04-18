@@ -6,42 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Template</title>
 
+    <!-- Custom fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap" rel="stylesheet">
+    <!-- Custom icons -->
+    <script src="https://kit.fontawesome.com/32577d814c.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="css/header-footer.css">
+    <link rel="stylesheet" href="css/nav-footer.css">
 </head>
 <body>
     <div class="nav">
         <!-- Navigation bar -->
-        <a href="#home"><img src="img/icons/book.PNG" alt="homepage link" height="88px" width="252px"></a>
-        <div class="dropdown">
-            <button class="dropbtn nav-btn"><b>Browse</b></button>
-        </div>
-        <a href="#help-support"><button class="nav-btn"><b>Help & Support</b></button></a>
+        <ul>
+            <li><a href="#home"><img src="img/icons/book.PNG" alt="home" height="90" width="250"></a></li>
+            <li><a href="#browse" class="button dropdown-button">Browse<i class="fa-solid fa-angle-down"></i></a></li>
+            <li><a href="#help-support" class="button">Help & Support</a></li>
+        </ul>
         <div class="search-bar">
             <input type="text" placeholder="Search">
-            <button><img src="img/icons/search.PNG" alt="search" height="36" width="36"></button>
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
     </div>
 
     <div class="main-content">
-        <!-- Current page content -->
-        <h1>Page Content</h1>
-        <p>Blah blah blah</p>
+        <!-- Main page content -->
+
+        <h1>Title</h1>
+        <p>Content</p>
+
     </div>
-
-    <div class="footer">
+    
+    <div class="nav footer">
         <!-- Footer -->
-
-        <img src="img/icons/call.PNG" alt="phone" height="50px" width="50px">
-        <div class="footer-text">1245-222</div>
-        <img src="img/icons/location.PNG" alt="location" height="50px" width="50px">
-        <div class="footer-text">Philippines</div>
-        <img src="img/icons/mail.PNG" alt="mail" height="50px" width="50px">
-        <div class="footer-text">xyz@gmail.com</div>
-        <img src="img/icons/book.PNG" alt="book" height="50" width="160">
+        <ul>
+            <li>
+                <img src="img/icons/call.PNG" alt="phone" height="50px" width="50px">
+                <p>1245-222</p>
+            </li>
+            <li>
+                <img src="img/icons/location.PNG" alt="location" height="50px" width="50px">
+                <p>Philippines</p>
+            </li>
+            <li>
+                <img src="img/icons/mail.PNG" alt="mail" height="50px" width="50px">
+                <p>xyz@gmail.com</p>
+            </li>
+        </ul>
+        <a href="#home"><img src="img/icons/book.PNG" alt="book" height="50" width="160"></a>
     </div>
 </body>
 </html>
