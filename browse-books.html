@@ -13,6 +13,7 @@
     <!-- Custom icons -->
     <script src="https://kit.fontawesome.com/32577d814c.js" crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/nav-footer.css">
     <link rel="stylesheet" href="css/browse-books-style.css">
 </head>
@@ -20,134 +21,215 @@
     <div class="nav">
         <!-- Navigation bar -->
         <ul>
-            <li><a href="#home"><img src="img/icons/book.PNG" alt="home" height="90" width="250"></a></li>
-            <li><a href="#browse" class="button dropdown-button">Browse<i class="fa-solid fa-angle-down"></i></a></li>
-            <li><a href="#help-support" class="button">Help & Support</a></li>
+            <li><a href="#home"><button class="btn blue clickable"><i class="fa-solid fa-book-open"></i></button></a></li>
+            <li><a href="#help-support"><button class="btn blue clickable">Help & Support</button></a></li>
+            <li class="drop-menu blue">
+                <a href="#">Browse</a><i class="fa-solid fa-angle-down"></i>
+                <ul>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                    <li><a href="#">Link 4</a></li>
+                </ul>
+            </li>
         </ul>
-        <div class="search-bar">
-            <input type="text" placeholder="Search">
-            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <div class="search">
+            <input type="text" placeholder="Search..."> 
+            <select id="search-select">
+                <option value="books">Books</option>
+                <option value="user">User</option>
+            </select>
+            <button class="blue"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
     </div>
 
     <div class="main-content">
         <!-- Main page content -->
+        <div class="search">
+            <input type="text" size=30 placeholder="Search..."> 
+            <button class="blue"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
 
-        <div class="main">
-            <div class="search-bar">
-                <input type="text" placeholder="Search">
-                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <div class="browse-nav">
+            <p><b>1234 results | </b>page 3 of 10</p>
+            <button class="btn clickable">Prev</button>
+            <button class="btn clickable">Next</button>
+        </div>
+
+        <div class="sort-filter">
+            <div class="sort drop-menu-click">
+                <input type="checkbox" id="sort">
+                <label for="sort" class="unselectable"><i class="fa-solid fa-angle-right"></i><i class="fa-solid fa-angle-down"></i>Sort</label>
+                <ul>
+                    <li><a href="#">Name</a></li>
+                    <li><a href="#">Author</a></li>
+                    <li><a href="#">Publisher</a></li>
+                    <li><a href="#">Release Date</a></li>
+                    <li><a href="#">Popularity</a></li>
+                </ul>
             </div>
-            <div class="browse-nav">
-                <h3>12345 results</h3>
-                <p>Page 1 of ?</p>
-                <button>Next Page</button>
-            </div>
-            <div class="catalog">
-                <div class="catalog-item available">
-                    <div class="catalog-item-description">
-                        <h3>Book Title</h3>
-                        <h5>by Author Name (Year)</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <h4>Available</h4>
-                    </div>
-                    <img src="img/icons/cover-page.png" alt="book" height="210" width="160">
-                </div>
-                
-                <div class="catalog-item available">
-                    <div class="catalog-item-description">
-                        <h3>Book Title</h3>
-                        <h5>by Author Name (Year)</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <h4>Available</h4>
-                    </div>
-                    <img src="img/icons/cover-page.png" alt="book" height="210" width="160">
-                </div>
-                
-                <div class="catalog-item available">
-                    <div class="catalog-item-description">
-                        <h3>Book Title</h3>
-                        <h5>by Author Name (Year)</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <h4>Available</h4>
-                    </div>
-                    <img src="img/icons/cover-page.png" alt="book" height="210" width="160">
-                </div>
-                
-                <div class="catalog-item not-in-lib">
-                    <div class="catalog-item-description">
-                        <h3>Book Title</h3>
-                        <h5>by Author Name (Year)</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <h4>Not in Library</h4>
-                    </div>
-                    <img src="img/icons/cover-page.png" alt="book" height="210" width="160">
-                </div>
-                
-                <div class="catalog-item not-in-lib">
-                    <div class="catalog-item-description">
-                        <h3>Book Title</h3>
-                        <h5>by Author Name (Year)</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <h4>Not in Library</h4>
-                    </div>
-                    <img src="img/icons/cover-page.png" alt="book" height="210" width="160">
-                </div>
-                
-                <div class="catalog-item available">
-                    <div class="catalog-item-description">
-                        <h3>Book Title</h3>
-                        <h5>by Author Name (Year)</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <h4>Available</h4>
-                    </div>
-                    <img src="img/icons/cover-page.png" alt="book" height="210" width="160">
-                </div>
+            <div class="filter drop-menu-click">
+                <input type="checkbox" id="filter">
+                <label for="filter" class="unselectable"><i class="fa-solid fa-angle-right"></i><i class="fa-solid fa-angle-down"></i>Filter</label>
+                <ul>
+                    <li>
+                        <div class="drop-menu-click">
+                            <input type="checkbox" id="release-date">
+                            <label for="release-date" class="unselectable"><i class="fa-solid fa-angle-right"></i><i class="fa-solid fa-angle-down"></i>Release date</label>
+                            <ul>
+                                <li><a href="#">Recent</a></li>
+                                <li><a href="#">Past Year</a></li>
+                                <li><a href="#">Previous Releases</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="drop-menu-click">
+                            <input type="checkbox" id="genre">
+                            <label for="genre" class="unselectable"><i class="fa-solid fa-angle-right"></i><i class="fa-solid fa-angle-down"></i>Genre</label>
+                            <ul>
+                                <li><a href="#">Nonfiction</a></li>
+                                <li><a href="#">Fiction</a></li>
+                                <li><a href="#">Science</a></li>
+                                <li><a href="#">Business</a></li>
+                                <li><a href="#">Romance</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="drop-menu-click">
+                            <input type="checkbox" id="language">
+                            <label for="language" class="unselectable"><i class="fa-solid fa-angle-right"></i><i class="fa-solid fa-angle-down"></i>Language</label>
+                            <ul>
+                                <li><a href="#">English</a></li>
+                                <li><a href="#">Filipino</a></li>
+                                <li><a href="#">Cebuano</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
 
-        <div class="sort">
-            <h2>Sort by</h2>
-            <ul>
-                <li>Title</li>
-                <li>Popularity</li>
-                <li>Release Date</li>
-                <li>Author Name</li>
-            </ul>
-        </div>
-
-        <div class="filter">
-            <h2>Filter</h2>
-            <ul>
-                <li>Release Date</li>
-                <li>Genre</li>
-                <li>Language</li>
-                <li>Publisher</li>
-                <li>Author</li>
-                <li>Media Type</li>
-            </ul>
-            
+        <div class="catalog">
+            <div class="catalog-item">
+                <div>
+                    <h3>Book title</h3>
+                    <h5>by Author name (year)</h5>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! Expedita id in cupiditate delectus facilis illo voluptatibus quod laudantium, quasi amet iure quia vitae explicabo! Amet quos officiis voluptas exercitationem fugiat, quibusdam reiciendis mollitia deserunt recusandae saepe veniam, rem perspiciatis quis tempora alias commodi soluta sapiente ab?
+                    </p>
+                    <button class="btn blue">Available</button>
+                </div>
+                <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
+            </div>
+            <div class="catalog-item">
+                <div>
+                    <h3>Book title</h3>
+                    <h5>by Author name (year)</h5>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! Expedita id in cupiditate delectus facilis illo voluptatibus quod laudantium, quasi amet iure quia vitae explicabo! Amet quos officiis voluptas exercitationem fugiat, quibusdam reiciendis mollitia deserunt recusandae saepe veniam, rem perspiciatis quis tempora alias commodi soluta sapiente ab?
+                    </p>
+                    <button class="btn gray">Not in library</button>
+                </div>
+                <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
+            </div>
+            <div class="catalog-item">
+                <div>
+                    <h3>Book title</h3>
+                    <h5>by Author name (year)</h5>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! Expedita id in cupiditate delectus facilis illo voluptatibus quod laudantium, quasi amet iure quia vitae explicabo! Amet quos officiis voluptas exercitationem fugiat, quibusdam reiciendis mollitia deserunt recusandae saepe veniam, rem perspiciatis quis tempora alias commodi soluta sapiente ab?
+                    </p>
+                    <button class="btn blue">Available</button>
+                </div>
+                <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
+            </div>
+            <div class="catalog-item">
+                <div>
+                    <h3>Book title</h3>
+                    <h5>by Author name (year)</h5>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! Expedita id in cupiditate delectus facilis illo voluptatibus quod laudantium, quasi amet iure quia vitae explicabo! Amet quos officiis voluptas exercitationem fugiat, quibusdam reiciendis mollitia deserunt recusandae saepe veniam, rem perspiciatis quis tempora alias commodi soluta sapiente ab?
+                    </p>
+                    <button class="btn gray">Not in library</button>
+                </div>
+                <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
+            </div>
+            <div class="catalog-item">
+                <div>
+                    <h3>Book title</h3>
+                    <h5>by Author name (year)</h5>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! Expedita id in cupiditate delectus facilis illo voluptatibus quod laudantium, quasi amet iure quia vitae explicabo! Amet quos officiis voluptas exercitationem fugiat, quibusdam reiciendis mollitia deserunt recusandae saepe veniam, rem perspiciatis quis tempora alias commodi soluta sapiente ab?
+                    </p>
+                    <button class="btn gray">Not in library</button>
+                </div>
+                <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
+            </div>
+            <div class="catalog-item">
+                <div>
+                    <h3>Book title</h3>
+                    <h5>by Author name (year)</h5>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! Expedita id in cupiditate delectus facilis illo voluptatibus quod laudantium, quasi amet iure quia vitae explicabo! Amet quos officiis voluptas exercitationem fugiat, quibusdam reiciendis mollitia deserunt recusandae saepe veniam, rem perspiciatis quis tempora alias commodi soluta sapiente ab?
+                    </p>
+                    <button class="btn blue">Available</button>
+                </div>
+                <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
+            </div>
+            <div class="catalog-item">
+                <div>
+                    <h3>Book title</h3>
+                    <h5>by Author name (year)</h5>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! Expedita id in cupiditate delectus facilis illo voluptatibus quod laudantium, quasi amet iure quia vitae explicabo! Amet quos officiis voluptas exercitationem fugiat, quibusdam reiciendis mollitia deserunt recusandae saepe veniam, rem perspiciatis quis tempora alias commodi soluta sapiente ab?
+                    </p>
+                    <button class="btn blue">Available</button>
+                </div>
+                <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
+            </div>
+            <div class="catalog-item">
+                <div>
+                    <h3>Book title</h3>
+                    <h5>by Author name (year)</h5>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! Expedita id in cupiditate delectus facilis illo voluptatibus quod laudantium, quasi amet iure quia vitae explicabo! Amet quos officiis voluptas exercitationem fugiat, quibusdam reiciendis mollitia deserunt recusandae saepe veniam, rem perspiciatis quis tempora alias commodi soluta sapiente ab?
+                    </p>
+                    <button class="btn blue">Available</button>
+                </div>
+                <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
+            </div>
+            <div class="catalog-item">
+                <div>
+                    <h3>Book title</h3>
+                    <h5>by Author name (year)</h5>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! Expedita id in cupiditate delectus facilis illo voluptatibus quod laudantium, quasi amet iure quia vitae explicabo! Amet quos officiis voluptas exercitationem fugiat, quibusdam reiciendis mollitia deserunt recusandae saepe veniam, rem perspiciatis quis tempora alias commodi soluta sapiente ab?
+                    </p>
+                    <button class="btn gray">Not in library</button>
+                </div>
+                <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
+            </div>
         </div>
 
     </div>
     
-    <div class="nav footer">
+    <div class="footer">
         <!-- Footer -->
-        <ul>
-            <li>
-                <img src="img/icons/call.PNG" alt="phone" height="50px" width="50px">
-                <p>1245-222</p>
-            </li>
-            <li>
-                <img src="img/icons/location.PNG" alt="location" height="50px" width="50px">
-                <p>Philippines</p>
-            </li>
-            <li>
-                <img src="img/icons/mail.PNG" alt="mail" height="50px" width="50px">
-                <p>xyz@gmail.com</p>
-            </li>
-        </ul>
-        <a href="#home"><img src="img/icons/book.PNG" alt="book" height="50" width="160"></a>
+        <div>
+            <button class="btn blue circle"><i class="fa-solid fa-phone"></i></button>
+            <h3>1245-222</h3>
+        </div>
+        <div>
+            <button class="btn blue circle"><i class="fa-solid fa-location-dot"></i></button>
+            <h3>Philippines</h3>
+        </div>
+        <div>
+            <button class="btn blue circle"><i class="fa-solid fa-envelope"></i></button>
+            <h3>xyz@email.com</h3>
+        </div>
+        <a href="#home"><button class="btn blue clickable"><i class="fa-solid fa-book-open"></i></button></a>
     </div>
 </body>
 </html>
