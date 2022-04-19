@@ -72,6 +72,7 @@ select {
     max-width: fit-content;
     border-radius: 12px;
     position: relative;
+    white-space: nowrap;
 }
 
 .drop-menu:hover > ul {
@@ -90,7 +91,7 @@ select {
 }
 
 .drop-menu > i {
-    margin: 0.5rem;
+    margin: 0.5em;
 }
 
 .drop-menu > ul {
@@ -179,6 +180,12 @@ select {
     border: none;
     border-radius: 12px;
     font-weight: bold;
+}
+
+/* circle - makes button circular */
+.circle {
+    border-radius: 100%;
+    padding: 0.5em 1em;
 }
 
 
