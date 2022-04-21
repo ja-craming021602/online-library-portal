@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Page</title>
+
+    <!-- Custom fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap" rel="stylesheet">
+    <!-- Custom icons -->
+    <script src="https://kit.fontawesome.com/32577d814c.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/nav-footer.css">
+    <link rel="stylesheet" href="bookpage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="nav">
+        <!-- Navigation bar -->
+        <ul>
+            <li><a href="#home"><button class="btn blue clickable"><i class="fa-solid fa-book-open"></i></button></a></li>
+            <li><a href="#help-support"><button class="btn blue clickable">Help & Support</button></a></li>
+            <li class="drop-menu blue">
+                <a href="#">Browse</a><i class="fa-solid fa-angle-down"></i>
+                <ul>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                    <li><a href="#">Link 4</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="search">
+            <input type="text" placeholder="Search..."> 
+            
+            <button class="blue"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+    </div>            
+
+    <div class="container"> 
+        <div class="sidebarL"> 
+            <div class="pictureBar"> 
+                <img src="cover-page.png" alt="Sample volume 3">
+                    <button class="btn blue clickable">Available in Library</button>
+            </div>
+            <div class="shareTab"> 
+                <p2> Share this Book:</p2><br>
+                <button class="btn blue clickable circle"><i class="fa-brands fa-facebook"></i> </button>
+                <button class="btn blue clickable circle"><i class="fa-brands fa-twitter"></i></button>
+                <button class="btn blue clickable circle"><i class="fa-solid fa-envelope"></i></button>
+                <button class="btn blue clickable circle"><i class="fa-brands fa-tiktok"></i></button>
+            </div>
+        </div>
+
+        <div class="mainbar"> 
+            <div class="bookTitle"> 
+                <div class="leftTitle">
+                    <p1> Book title</p1>
+                    <p2> BY Author Name</p2>
+
+                </div>  
+                <div class="rightTitle">
+                    <a class="one" href="https://i.redd.it/29pgg3ifyvp21.png">Borrow history</a>
+                    <a class="two" href="https://c.tenor.com/qQk6DhSV1qUAAAAd/anime-grand.gif">Edit</a>
+                </div>
+            </div>
+            <div class="publishDate">
+                <p4> Publish Date</p4>
+                <p4> Publisher</p4>
+                <p4> Language</p4>
+                <p4> Pages</p4>
+                <p3> YYYY-MM-DD</p3>
+                <p3> Publisher Company</p3>
+                <p3> English</p3>
+                <p3> 123</p3>
+            </div>
+            <div class="overview"> 
+                <h3> Overview</h3>
+                <p3> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                     eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                      enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+                      nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
+                      reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
+                      pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+                       in culpa qui officia deserunt mollit anim id est laborum.</p3>
+            </div>
+        </div>
+
+        <div class="sidebarR"> 
+            <p4> Book Details</p4>
+            <div class="isbn">
+                <span class="details">ISBN</span>
+                <p3>12345789952</p3>
+                <p3>12345789952</p3>
+            </div>
+            <div class="genre">
+                <span class="details">Genre</span>
+                <p3>Action</p3>
+                <p3>Comedy</p3>
+            </div>
+            <div class="ratings">
+                <span class="details">User Ratings</span>
+                <div class="row">
+                    <div class="side"> <p3>5 stars</p3>
+                    <div class="middle"> 
+                        <div class="bar-container">
+                            <div class="bar-5"></div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="side"> <p3>4 stars</p3>
+                    <div class="middle">
+                        <div class="bar-container">
+                          <div class="bar-4"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="side"> <p3>3 stars</p3>
+                    <div class="middle">
+                        <div class="bar-container">
+                          <div class="bar-3"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="side"> <p3>2 stars</p3>
+                    <div class="middle">
+                        <div class="bar-container">
+                          <div class="bar-2"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="side"> <p3>1 star</p3>
+                    <div class="middle">
+                        <div class="bar-container">
+                          <div class="bar-1"></div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>    
+        
+    <div class="footer">
+        <!-- Footer -->
+        <div>
+            <button class="btn blue circle"><i class="fa-solid fa-phone"></i></button>
+            <h3>1245-222</h3>
+        </div>
+        <div>
+            <button class="btn blue circle"><i class="fa-solid fa-location-dot"></i></button>
+            <h3>Philippines</h3>
+        </div>
+        <div>
+            <button class="btn blue circle"><i class="fa-solid fa-envelope"></i></button>
+            <h3>xyz@email.com</h3>
+        </div>
+        <a href="#home"><button class="btn blue clickable"><i class="fa-solid fa-book-open"></i></button></a>
+    </div>
+</body>
+</html>
