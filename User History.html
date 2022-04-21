@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User History</title>
+
+    <!-- Custom fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap" rel="stylesheet">
+    <!-- Custom icons -->
+    <script src="https://kit.fontawesome.com/32577d814c.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/nav-footer.css">
+    <link rel="stylesheet" href="css/user-history.css">
+</head>
+<body>
+    <div class="nav">
+        <!-- Navigation bar -->
+        <ul>
+            <li><a href="#home"><button class="btn blue clickable"><i class="fa-solid fa-book-open"></i></button></a></li>
+            <li><a href="#help-support"><button class="btn blue clickable">Help & Support</button></a></li>
+            <li class="drop-menu blue">
+                <a href="#">Browse</a><i class="fa-solid fa-angle-down"></i>
+                <ul>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                    <li><a href="#">Link 4</a></li>
+                </ul>
+            </li>
+        </ul>
+
+
+        <div class="search">
+            <input type="text" placeholder="Search..."> 
+            <select id="search-select">
+                <option value="books">Books</option>
+                <option value="user">User</option>
+            </select>
+            <button class="blue"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+     </div>
+
+
+     <div class="main-content">
+        <!-- Main page content -->
+       
+    <div class = "user-info">
+
+        <div class="num-search">
+         
+            <div class="search">
+                <h2>Enter User ID</h2>
+                <input type="text" placeholder="Search..."> 
+                <button class="blue"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+
+        </div>
+
+        <div class="data">
+            
+        <button class="btn black circle">User Information Found</button>
+
+         <h3>Last Name</h3><input type="text" placeholder="Last Name "> 
+         <h3>First Name</h3><input type="text" placeholder="First Name"> 
+         <h3>User ID</h3><input type="text" placeholder="0000000001">
+         <h3>Date Registered</h3><input type="text" placeholder="Date">
+
+        </div> 
+
+    </div>
+
+    <div class="history-container">
+            
+             <div class ="logo" >
+            <img src="img/icons/file.png" alt="file"><h1>User Track History</h1>
+            </div>
+
+            <div class="header-table">
+              <div class="headings">
+                <span class="Book Title">Book Title</span>
+                <span class="Author">Author Name</span>
+                <span class="">Date Boorrowed</span>
+                <span class="">Date Returned</span>
+              </div>
+          
+              <div class="policy">
+                <span>  
+                    <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
+                </span>
+              <div></div>
+                <span>Name</span>
+                <span>01 04 22</span>
+
+                <span>
+                    <p>05/04/22</p>
+                </span>
+              </div>
+
+              <div class="policy">
+                <span>  
+                    <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
+                </span>
+                <span>Name</span>
+                <span>01 04 22</span>
+
+                <span>
+                    <p>01 04 22</p>
+                  
+                </span>
+              </div>
+
+              <div class="policy">
+                <span>  
+                    <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
+                </span>
+                <span>Name</span>
+                <span>01 04 22</span>
+
+                <span>
+                    <button class="btn red clickable circle"><a href={row.link}>Due 22/04/22</a></button>
+                  
+                </span>
+              </div>
+          
+            </div>
+
+            
+
+    </div>
+
+
+
+    <div class="sort">
+            <h3>Sort by</h3> 
+                    <select id="select1">
+                    <option value="value1">Alphabetically</option>
+                    <option value="value2"> Date Borrowed</option>
+                    <option value="value3"> Date Returned</option>
+            </select>
+                 
+    </div>
+
+     </div>
+
+    
+
+
+    <div class="footer">
+        <!-- Footer -->
+        <div>
+            <button class="btn blue circle"><i class="fa-solid fa-phone"></i></button>
+            <h3>1245-222</h3>
+        </div>
+        <div>
+            <button class="btn blue circle"><i class="fa-solid fa-location-dot"></i></button>
+            <h3>Philippines</h3>
+        </div>
+        <div>
+            <button class="btn blue circle"><i class="fa-solid fa-envelope"></i></button>
+            <h3>xyz@email.com</h3>
+        </div>
+        <a href="#home"><button class="btn blue clickable"><i class="fa-solid fa-book-open"></i></button></a>
+    </div>
+</body>
+</html>

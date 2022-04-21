@@ -1,0 +1,56 @@
+.main-content {
+
+    padding: 1em;
+    display: flex;
+    font-family:Arial, Helvetica, sans-serif;
+    gap: 12px;
+    
+}
+
+
+.freq-ask    {
+
+    flex:2 ;
+    padding: 1em;
+    background-color: #7f7f7f;
+    border-radius: 12px;
+    text-align: center;
+    justify-content: center;
+    
+}
+
+
+
+
+
+.feedback{
+    
+    flex: 2;
+    padding: 0.5em;
+    background-color: #7f7f7f;
+    border-radius: 12px;
+    justify-content: center;
+
+}
+
+.h4, .logo{
+    font-size: 20;
+    justify-content: center;
+    text-align: center;
+}
+
+    
+
+.staff{
+    
+    flex: 1 ;
+    padding: 0.5em;
+    background-color: #7f7f7f;
+    border-radius: 12px;
+    text-align: center;
+    justify-content: center;
+    
+}
+
+
+
