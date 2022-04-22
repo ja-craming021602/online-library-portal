@@ -55,7 +55,7 @@
          
             <div class="search">
                 <h2>Enter User ID</h2>
-                <input type="text" placeholder="Search..."> 
+                <input type="text" placeholder="000 000 0001" size = "20" > 
                 <button class="blue"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
 
@@ -63,12 +63,14 @@
 
         <div class="data">
             
-        <button class="btn black circle">User Information Found</button>
+        <button class="btn black circle">
+            <img src="img/icons/alert.png" alt="file">
+            User Information Found</button>
 
-         <h3>Last Name</h3><input type="text" placeholder="Last Name "> 
-         <h3>First Name</h3><input type="text" placeholder="First Name"> 
-         <h3>User ID</h3><input type="text" placeholder="0000000001">
-         <h3>Date Registered</h3><input type="text" placeholder="Date">
+         <h3>Last Name</h3><input type="text" value ="DELA CRUZ"> 
+         <h3>First Name</h3><input type="text" value ="JUAN"> 
+         <h3>User ID</h3><input type="text" value ="000 000 0001">
+         <h3>Date Registered</h3><input type="text" value =" 02 16 02 ">
 
         </div> 
 
@@ -76,15 +78,15 @@
 
     <div class="history-container">
             
-             <div class ="logo" >
+            <div class ="logo" >
             <img src="img/icons/file.png" alt="file"><h1>User Track History</h1>
-            </div>
+             </div>
 
             <div class="header-table">
               <div class="headings">
                 <span class="Book Title">Book Title</span>
                 <span class="Author">Author Name</span>
-                <span class="">Date Boorrowed</span>
+                <span class="">Date Borrowed</span>
                 <span class="">Date Returned</span>
               </div>
           
@@ -94,10 +96,10 @@
                 </span>
               <div></div>
                 <span>Name</span>
-                <span>01 04 22</span>
+                <span>01 / 04 / 22</span>
 
                 <span>
-                    <p>05/04/22</p>
+                    <p>05 / 04 / 22</p>
                 </span>
               </div>
 
@@ -106,10 +108,10 @@
                     <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
                 </span>
                 <span>Name</span>
-                <span>01 04 22</span>
+                <span>01 / 04 / 22</span>
 
                 <span>
-                    <p>01 04 22</p>
+                    <p>01 / 04 / 22</p>
                   
                 </span>
               </div>
@@ -119,10 +121,10 @@
                     <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
                 </span>
                 <span>Name</span>
-                <span>01 04 22</span>
+                <span>01 / 04 /22</span>
 
                 <span>
-                    <button class="btn red clickable circle"><a href={row.link}>Due 22/04/22</a></button>
+                    <button class="btn red clickable circle"><a href={row.link}>Due 22 / 04 / 22</a></button>
                   
                 </span>
               </div>
@@ -142,6 +144,8 @@
                     <option value="value2"> Date Borrowed</option>
                     <option value="value3"> Date Returned</option>
             </select>
+
+            <h3> 3 items found </h3>
                  
     </div>
 
