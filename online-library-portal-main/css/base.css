@@ -1,0 +1,191 @@
+/* General styles */
+
+*, *::after, *::before { box-sizing: border-box; }
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+select {
+    border-radius: 12px;
+    padding: 0.2em 0.8em;
+    background-color: white;
+    border: none;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Colors */
+
+/* blue */
+.blue {
+    background-color: #3164f4;
+    color: white;
+}
+
+.blue * {
+    color: white;
+}
+
+/* red */
+.red {
+    background-color: #F43131;
+    color: white;
+}
+
+.red * {
+    color: white;
+}
+
+/* black */
+.black {
+    background-color: #262626;
+    color: white;
+}
+
+.black * {
+    color: white;
+}
+
+/* Utility classes */
+
+/* unselectable - makes text unselectable */
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* clickable - for clickable elements (mostly used for buttons)*/
+.clickable:hover {
+    filter: brightness(1.2);
+}
+
+.clickable:active {
+    filter: brightness(0.8);
+}
+
+/* drop-menu - for making dropdown on hover menu*/
+.drop-menu {
+    max-width: fit-content;
+    border-radius: 12px;
+    position: relative;
+    white-space: nowrap;
+}
+
+.drop-menu:hover > ul {
+    position: absolute;
+    display: block;
+    min-width: 100%;
+    background-color: inherit;
+    border-top: 1px solid black;
+    border-radius: 12px;
+    padding-right: 1em;
+}
+
+.drop-menu > a {
+    text-decoration: none;
+    padding: 0.5em 1em;
+}
+
+.drop-menu > i {
+    margin: 0.5em;
+}
+
+.drop-menu > ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 1em;
+    display: none;
+}
+
+.drop-menu > ul * {
+    text-decoration: none;
+    margin: 0.3em;
+}
+
+.drop-menu > ul *:hover {
+    text-decoration: underline;
+}
+
+/* drop-menu-click - for making dropdown on click */
+.drop-menu-click > input, .drop-menu-click > label > i:last-child{
+    display: none;
+}
+
+.drop-menu-click > input:checked~ul {
+    display: block;
+}
+
+.drop-menu-click > input:checked~label > i:first-child {
+    display: none;
+}
+
+.drop-menu-click > input:checked~label > i:last-child {
+    display: inline;
+}
+
+.drop-menu-click i {
+    margin: 0.5rem;
+}
+
+.drop-menu-click > ul {
+    list-style: none;
+    margin: 0;
+    display: none;
+}
+
+.drop-menu-click > ul * {
+    text-decoration: none;
+    margin: 0.3em;
+    color: black;
+}
+
+.drop-menu-click li > *:hover {
+    text-decoration: underline;
+}
+
+/* search - for search bars */
+.search {
+    max-width: fit-content;
+    white-space: nowrap
+}
+
+.search > input {
+    border: none;
+    border-radius: 12px;
+    padding: 0.5em 1em;
+}
+
+.search > button {
+    border: none;
+    border-radius: 50%;
+    height: 2em;
+}
+
+.search > button:hover {
+    filter: brightness(1.2);
+}
+
+.search > button:active {
+    filter: brightness(0.8);
+}
+
+/* btn - designs for button */
+.btn {
+    padding: 1em 2em;
+    font-family: 'Poppins', sans-serif;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+/* circle - makes button circular */
+.circle {
+    border-radius: 100%;
+    padding: 0.5em 1em;
+}
+
+
