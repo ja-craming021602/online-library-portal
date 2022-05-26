@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2022 at 03:50 PM
+-- Generation Time: May 26, 2022 at 03:56 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -36,17 +36,18 @@ CREATE TABLE `book` (
   `PageCount` int(10) DEFAULT NULL,
   `ISBN` varchar(15) DEFAULT NULL,
   `Overview` text DEFAULT NULL,
-  `Rating` float DEFAULT NULL
+  `Rating` float DEFAULT NULL,
+  `DateAdded` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `book`
 --
 
-INSERT INTO `book` (`BookID`, `Title`, `PubDate`, `Publisher`, `Language`, `PageCount`, `ISBN`, `Overview`, `Rating`) VALUES
-(1, 'My Beloved World', 2013, 'Alfred A. Knopf', 'eng', 432, '9781080286058', 'Born in 1954, Sotomayor grew up in an impoverished, close-knit Puerto Rican community in the South Bronx. Her mother was often absent, working long hours as a nurse; her father was an alcoholic. When she was diagnosed with diabetes at the age of seven, Sotomayor learned to give herself daily insulin shots, taking on the responsibility that both her parents found difficult.  Sotomayor escaped the tensions at home at her grandmother’s among a loving extended family and discovered the pleasures and rewards of education at the strict Catholic schools she attended.  A top-notch student, she went to Princeton, and on to Yale Law School.  As a young lawyer, she worked at the New York City District Attorney’s office and moved on to private practice at a prestigious law firm; at the age of 38, she was appointed to the Federal District Court. \r\n\r\nFrom intimate snapshots of her childhood to nuanced reflections on affirmative action, the legal profession, and the strengths and shortcomings of American society today, My Beloved World shines with the intelligence, enthusiasm, good humor, and compassion Sotomayor has brought to every step of her extraordinary journey.', 4.03),
-(2, 'Straight Man', 1997, 'Knopf Doubleday Publishing Group', 'eng', 416, '9780375701900', 'William Henry Devereaux, Jr., known to his friends as Hank, is a fast-talking, self-deprecating man, the classic wise guy.  Now approaching fifty, Hank finds himself heading full-speed into a midlife crisis: he despises his job as English professor at an undistinguished middle-American university, and his status as a \"novelist\" who has not written any fiction for twenty years.  He fears he may have prostate cancer, he suspects his wife of having an affair, and he avoids even thinking about the fact that his father, the elder statesman of American literary criticism with whom he has much unresolved business, will soon be reentering his orbit.  Over the course of a single convoluted week, the hapless Hank goes through a painful series of adventures, some hilarious and some harrowing, which eventually take him to the brink of sanity.  As he did in Nobody’s Fool, Russo proves himself a master of depicting the fraught, unvoiced currents that run between parents and children, husbands and wives.  In his intelligence, humor, and ability to merge sorrow and farce into a seamless fabric, Richard Russo stands out as a writer of surpassing insight and humanity.', 4.02),
-(3, 'Christine', 1983, 'Gallery Books ', 'fre', 656, '9781501144189', 'Christine is a horror novel by American writer Stephen King, published in 1983. It tells the story of a car (a 1958 Plymouth Fury) apparently possessed by malevolent supernatural forces.', 3.72);
+INSERT INTO `book` (`BookID`, `Title`, `PubDate`, `Publisher`, `Language`, `PageCount`, `ISBN`, `Overview`, `Rating`, `DateAdded`) VALUES
+(1, 'My Beloved World', 2013, 'Alfred A. Knopf', 'eng', 432, '9781080286058', 'Born in 1954, Sotomayor grew up in an impoverished, close-knit Puerto Rican community in the South Bronx. Her mother was often absent, working long hours as a nurse; her father was an alcoholic. When she was diagnosed with diabetes at the age of seven, Sotomayor learned to give herself daily insulin shots, taking on the responsibility that both her parents found difficult.  Sotomayor escaped the tensions at home at her grandmother’s among a loving extended family and discovered the pleasures and rewards of education at the strict Catholic schools she attended.  A top-notch student, she went to Princeton, and on to Yale Law School.  As a young lawyer, she worked at the New York City District Attorney’s office and moved on to private practice at a prestigious law firm; at the age of 38, she was appointed to the Federal District Court. \r\n\r\nFrom intimate snapshots of her childhood to nuanced reflections on affirmative action, the legal profession, and the strengths and shortcomings of American society today, My Beloved World shines with the intelligence, enthusiasm, good humor, and compassion Sotomayor has brought to every step of her extraordinary journey.', 4.03, '2022-04-01 21:55:02'),
+(2, 'Straight Man', 1997, 'Knopf Doubleday Publishing Group', 'eng', 416, '9780375701900', 'William Henry Devereaux, Jr., known to his friends as Hank, is a fast-talking, self-deprecating man, the classic wise guy.  Now approaching fifty, Hank finds himself heading full-speed into a midlife crisis: he despises his job as English professor at an undistinguished middle-American university, and his status as a \"novelist\" who has not written any fiction for twenty years.  He fears he may have prostate cancer, he suspects his wife of having an affair, and he avoids even thinking about the fact that his father, the elder statesman of American literary criticism with whom he has much unresolved business, will soon be reentering his orbit.  Over the course of a single convoluted week, the hapless Hank goes through a painful series of adventures, some hilarious and some harrowing, which eventually take him to the brink of sanity.  As he did in Nobody’s Fool, Russo proves himself a master of depicting the fraught, unvoiced currents that run between parents and children, husbands and wives.  In his intelligence, humor, and ability to merge sorrow and farce into a seamless fabric, Richard Russo stands out as a writer of surpassing insight and humanity.', 4.02, '2022-04-02 21:55:02'),
+(3, 'Christine', 1983, 'Gallery Books ', 'fre', 656, '9781501144189', 'Christine is a horror novel by American writer Stephen King, published in 1983. It tells the story of a car (a 1958 Plymouth Fury) apparently possessed by malevolent supernatural forces.', 3.72, '2022-04-03 21:55:02');
 
 -- --------------------------------------------------------
 
