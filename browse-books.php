@@ -1,37 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php
+    $search_value = '';
+    $current_page = 1;
+    $offset = 0;
+    $books_per_page = 6;
+
+    // connect to db
+    $conn = mysqli_connect('localhost','root', '', 'onlinelibraryportal');
+
+    $search_entry = "";
+    if (isset($_GET['book-search-btn'])) {
+        $search_entry = mysqli_real_escape_string($conn, $_GET['book-search']);
+        $search_value = htmlspecialchars($_GET['book-search']);
+    }
+    if (isset($_GET['page'])) {
+        $current_page = $_GET['page'];
+        $search_entry = mysqli_real_escape_string($conn, $_GET['book-search']);
+        $search_value = htmlspecialchars($_GET['book-search']);
+    }
+
+    $offset = $offset + ($current_page - 1) * $books_per_page;
+    
+    // query from db
+    $query = "SELECT BookID, Title, Overview, PubDate FROM book";
+    if ($search_entry) {
+        $query = $query." WHERE Title LIKE '%$search_entry%'";
+    }
+    $query = $query." ORDER BY DateAdded DESC";
+    $result = mysqli_query($conn, $query);
+
+    // storing to variable
+    $books = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    mysqli_free_result($result);
+
+    $num_of_results = count($books);
+    $max_page = ceil($num_of_results / $books_per_page);
+    $max_page = $max_page ? $max_page : 1;
+
+    // further filter the returned results
+    $query = $query." LIMIT $books_per_page OFFSET $offset";
+    $result = mysqli_query($conn, $query);
+    $books = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    mysqli_free_result($result);
+
+    // include authors to $books array
+    foreach ($books as &$book) {
+        $bookID = $book['BookID'];
+        $query = "SELECT Author FROM rl_book_author WHERE BookID=$bookID";
+        $result = mysqli_query($conn, $query);
+        $authors = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        mysqli_free_result($result);
+
+        foreach ($authors as $author) {
+            $book['Authors'][] = $author['Author'];
+        }
+
+        // include availability
+        $query = "SELECT DateReturned FROM borrow WHERE BookID=$bookID";
+        $result = mysqli_query($conn, $query);
+        $returnDates = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        mysqli_free_result($result);
+
+        if (!$returnDates) {
+            $book['Availability'] = 'Available';
+        } else {
+            $date = array_pop($returnDates);
+            if ($date['DateReturned']) {
+                $book['Availability'] = 'Available';
+            } else {
+                $book['Availability'] = 'Not Available';
+            }
+        }
+    }
+
+    unset($book);
+
+    mysqli_close($conn);
+    // end of retrieving data from server, all needed data stored in $books array
+?>
+
+<?php include('templates/head.php') ?>
     <title>Browse Books</title>
-
-    <!-- Custom fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap" rel="stylesheet">
-    <!-- Custom icons -->
-    <script src="https://kit.fontawesome.com/32577d814c.js" crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/nav-footer.css">
     <link rel="stylesheet" href="css/browse-books-style.css">
-</head>
 <?php include('templates/nav.php') ?>
 
     <div class="main-content">
         <!-- Main page content -->
-        <div class="search">
-            <input type="text" size=30 placeholder="Search..."> 
-            <button class="blue"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
+        <form class="search" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="GET">
+            <input type="text" size=30 placeholder="Search..." name="book-search" value="<?php echo $search_value; ?>"> 
+            <button class="blue" name="book-search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
 
 
-        <div class="browse-nav">
-            <p><b>1234 results | </b>page 3 of 10</p>
-            <button class="btn clickable">Prev</button>
-            <button class="btn clickable">Next</button>
-        </div>
+        <form class="browse-nav" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="GET">
+            <p><b><?php echo $num_of_results ?> results | </b>page <?php echo $current_page ?> of <?php echo $max_page ?></p>
+            <input type="hidden" name="book-search" value="<?php echo $search_value; ?>">
+            <button class="btn clickable" name="page" value="<?php echo $current_page - 1; ?>" <?php echo $current_page <= 1 ? 'disabled': ''; ?>>Prev</button>
+            <button class="btn clickable" name="page" value="<?php echo $current_page + 1; ?>" <?php echo $current_page >= $max_page ? 'disabled': ''; ?>>Next</button>
+        </form>
 
         <div class="sort-filter">
             <div class="sort drop-menu-click">
@@ -89,105 +154,30 @@
         </div>
 
         <div class="catalog">
-            <div class="catalog-item">
-                <div>
-                    <h3>Book title</h3>
-                    <h5>by Author name (year)</h5>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! Expedita id in cupiditate delectus facilis illo voluptatibus quod laudantium, quasi amet iure quia vitae explicabo! Amet quos officiis voluptas exercitationem fugiat, quibusdam reiciendis mollitia deserunt recusandae saepe veniam, rem perspiciatis quis tempora alias commodi soluta sapiente ab?
-                    </p>
-                    <button class="btn blue">Available</button>
+            <?php foreach ($books as $book): ?>
+                <div class="catalog-item">
+                    <div>
+                        <h3><?php echo htmlspecialchars($book['Title']); ?></h3>
+                        <h5>by <?php foreach ($book['Authors'] as $author): echo htmlspecialchars($author).', '; endforeach;?> (<?php echo htmlspecialchars($book['PubDate']); ?>)</h5>
+                        <p>
+                            <?php echo htmlspecialchars($book['Overview']); ?>
+                        </p>
+                        <?php if ($book['Availability'] == 'Available'):?>
+                            <button class="btn blue">
+                        <?php else: ?>
+                            <button class="btn red">
+                        <?php endif; ?>
+                                <?php echo htmlspecialchars($book['Availability']); ?>
+                            </button>
+                    </div>
+                    <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
                 </div>
-                <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
-            </div>
-            <div class="catalog-item">
-                <div>
-                    <h3>Book title</h3>
-                    <h5>by Author name (year)</h5>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! Expedita id in cupiditate delectus facilis illo voluptatibus quod laudantium, quasi amet iure quia vitae explicabo! Amet quos officiis voluptas exercitationem fugiat, quibusdam reiciendis mollitia deserunt recusandae saepe veniam, rem perspiciatis quis tempora alias commodi soluta sapiente ab?
-                    </p>
-                    <button class="btn gray">Not in library</button>
+            <?php endforeach ?>
+            <?php if (!$books): ?>
+                <div class="catalog-item">
+                    <h1>No results.</h1>
                 </div>
-                <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
-            </div>
-            <div class="catalog-item">
-                <div>
-                    <h3>Book title</h3>
-                    <h5>by Author name (year)</h5>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! Expedita id in cupiditate delectus facilis illo voluptatibus quod laudantium, quasi amet iure quia vitae explicabo! Amet quos officiis voluptas exercitationem fugiat, quibusdam reiciendis mollitia deserunt recusandae saepe veniam, rem perspiciatis quis tempora alias commodi soluta sapiente ab?
-                    </p>
-                    <button class="btn blue">Available</button>
-                </div>
-                <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
-            </div>
-            <div class="catalog-item">
-                <div>
-                    <h3>Book title</h3>
-                    <h5>by Author name (year)</h5>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! Expedita id in cupiditate delectus facilis illo voluptatibus quod laudantium, quasi amet iure quia vitae explicabo! Amet quos officiis voluptas exercitationem fugiat, quibusdam reiciendis mollitia deserunt recusandae saepe veniam, rem perspiciatis quis tempora alias commodi soluta sapiente ab?
-                    </p>
-                    <button class="btn gray">Not in library</button>
-                </div>
-                <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
-            </div>
-            <div class="catalog-item">
-                <div>
-                    <h3>Book title</h3>
-                    <h5>by Author name (year)</h5>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! Expedita id in cupiditate delectus facilis illo voluptatibus quod laudantium, quasi amet iure quia vitae explicabo! Amet quos officiis voluptas exercitationem fugiat, quibusdam reiciendis mollitia deserunt recusandae saepe veniam, rem perspiciatis quis tempora alias commodi soluta sapiente ab?
-                    </p>
-                    <button class="btn gray">Not in library</button>
-                </div>
-                <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
-            </div>
-            <div class="catalog-item">
-                <div>
-                    <h3>Book title</h3>
-                    <h5>by Author name (year)</h5>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! Expedita id in cupiditate delectus facilis illo voluptatibus quod laudantium, quasi amet iure quia vitae explicabo! Amet quos officiis voluptas exercitationem fugiat, quibusdam reiciendis mollitia deserunt recusandae saepe veniam, rem perspiciatis quis tempora alias commodi soluta sapiente ab?
-                    </p>
-                    <button class="btn blue">Available</button>
-                </div>
-                <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
-            </div>
-            <div class="catalog-item">
-                <div>
-                    <h3>Book title</h3>
-                    <h5>by Author name (year)</h5>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! Expedita id in cupiditate delectus facilis illo voluptatibus quod laudantium, quasi amet iure quia vitae explicabo! Amet quos officiis voluptas exercitationem fugiat, quibusdam reiciendis mollitia deserunt recusandae saepe veniam, rem perspiciatis quis tempora alias commodi soluta sapiente ab?
-                    </p>
-                    <button class="btn blue">Available</button>
-                </div>
-                <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
-            </div>
-            <div class="catalog-item">
-                <div>
-                    <h3>Book title</h3>
-                    <h5>by Author name (year)</h5>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! Expedita id in cupiditate delectus facilis illo voluptatibus quod laudantium, quasi amet iure quia vitae explicabo! Amet quos officiis voluptas exercitationem fugiat, quibusdam reiciendis mollitia deserunt recusandae saepe veniam, rem perspiciatis quis tempora alias commodi soluta sapiente ab?
-                    </p>
-                    <button class="btn blue">Available</button>
-                </div>
-                <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
-            </div>
-            <div class="catalog-item">
-                <div>
-                    <h3>Book title</h3>
-                    <h5>by Author name (year)</h5>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! Expedita id in cupiditate delectus facilis illo voluptatibus quod laudantium, quasi amet iure quia vitae explicabo! Amet quos officiis voluptas exercitationem fugiat, quibusdam reiciendis mollitia deserunt recusandae saepe veniam, rem perspiciatis quis tempora alias commodi soluta sapiente ab?
-                    </p>
-                    <button class="btn gray">Not in library</button>
-                </div>
-                <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
-            </div>
+            <?php endif ?>
         </div>
 
     </div>

@@ -1,3 +1,4 @@
+</head>
 <body>
     <div class="nav">
         <!-- Navigation bar -->
@@ -14,12 +15,12 @@
                 </ul>
             </li>
         </ul>
-        <div class="search">
-            <input type="text" placeholder="Search..."> 
+        <form class="search" action="browse-books.php" method="GET">
+            <input type="text" placeholder="Search..." name="book-search"> 
             <select id="search-select">
                 <option value="books">Books</option>
                 <option value="user">User</option>
             </select>
-            <button class="blue"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
+            <button class="blue" name="book-search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
     </div>
