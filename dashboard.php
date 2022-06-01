@@ -95,6 +95,7 @@
                     <input type="text" placeholder="Language">
                     <input type="text" placeholder="Pages">
                     <input type="text" placeholder="ISBN">
+                    <input type="text" placeholder="Rating">
                     <textarea placeholder="Overview:" rows="5"></textarea>
                     <div class="center">
                         <button class="btn red clickable">Remove</button>
