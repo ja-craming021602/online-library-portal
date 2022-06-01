@@ -1,3 +1,12 @@
+<?php
+    if (isset($_POST['nav-search-btn'])) {
+        if ($_POST['search-select'] == 'books') {
+            $search = $_POST['search'];
+            header("Location: browse-books.php?book-search=$search&book-search-btn=");
+        }
+    }
+?>
+
 </head>
 <body>
     <div class="nav">
@@ -15,12 +24,12 @@
                 </ul>
             </li>
         </ul>
-        <form class="search" action="browse-books.php" method="GET">
-            <input type="text" placeholder="Search..." name="book-search"> 
-            <select id="search-select">
+        <form class="search" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+            <input type="text" placeholder="Search..." name="search"> 
+            <select id="search-select" name="search-select">
                 <option value="books">Books</option>
                 <option value="user">User</option>
             </select>
-            <button class="blue" name="book-search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button class="blue" name="nav-search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
     </div>

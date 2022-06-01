@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <?php include('templates/head.php') ?>
     <title>Staff Dashboard</title>
     <link rel="stylesheet" href="css/dashboard.css">
@@ -100,12 +104,12 @@
             <p1>User Records Management</p1>
             <div class="newUser"> 
                 <span class="details">For New Users </span>
-                    <form>
+                    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
                         <div class="alignG"><input type="text" placeholder="Last Name" required></div>
                         <div class="alignG"><input type="text" placeholder="First Name"required></div>
                         <div class="alignG"><input type="text" placeholder="M I" required></div>
                         <input type="text" placeholder="Address" style="width:100%" required>
-                       <div class="try"><input type="submit" value="Register User"></div>
+                       <div class="try"><input type="submit" name="register-user"></div>
                     </form>
             </div>
             <div class="existingUser">
@@ -144,4 +148,3 @@
     </div>
 
 <?php include('templates/footer.php') ?>
-</html>
