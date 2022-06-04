@@ -4,7 +4,7 @@
 <?php include('templates/nav.php') ?>
 
 
-     <div class="main-content">
+  <div class="main-content">
         <!-- Main page content -->
        
     <div class = "user-info">
@@ -107,10 +107,7 @@
                  
     </div>
 
-     </div>
-
-    
-
+</div><!-- end of main content -->
 
 
 <?php include('templates/footer.php') ?>
