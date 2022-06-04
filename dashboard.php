@@ -350,9 +350,10 @@
 
                     <h4>User: <?php echo htmlspecialchars($_POST['search-item'])." - ${user_name['FirstName']} ${user_name['LastName']}"; ?></h4>
 
-                    <?php foreach ($borrow_array as $borrow): ?>
+                    <div class="borrow list">
 
-                        <div class="borrow list">
+                        <?php foreach ($borrow_array as $borrow): ?>
+                        
                             <form class="book" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
                                 <input type="hidden" name="user-id" value="<?php echo htmlspecialchars($borrow['UserID']); ?>">
                                 <img src="img/icons/cover-page.png" alt="cover page" width="75px" height="100px">
@@ -368,9 +369,10 @@
                                     <?php endif; ?>
                                 </p>
                             </form>
-                        </div>
 
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
+                        
+                    </div>
 
                     <form class="right" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
                         <button class="btn blue clickable" name="new-borrow" value="<?php echo htmlspecialchars($_POST['search-item']) ?>">New Borrow</button>
