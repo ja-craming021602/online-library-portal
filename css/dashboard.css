@@ -27,8 +27,6 @@
     border-radius: 12px;
     padding: 0.5em;
     margin: 0.5em 0;
-    //height: 100%;
-    //width: 100%;
 }
 
 .inner-card .search {
@@ -39,7 +37,7 @@
     width: 90%;
 }
 
-.inner-card > div > p {
+.inner-card > form > p {
     padding: 0 1em;
     margin: 0;
     font-size: 0.8em;
@@ -65,9 +63,19 @@
     align-items: center;
     gap: 1em;
     margin: 0.5em 0;
+    text-align: left;
+    
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    width: 100%;
 }
 
-.db > .book:hover {
+.db .book:hover {
     background-color: #e1e0e0;
 }
 
@@ -77,7 +85,7 @@
     text-overflow: ellipsis;
 }
 
-.lib-management > .inner-card > form {
+.dark-form {
     background-color: #7f7f7f;
     padding: 0.5em;
     border-radius: 12px;

@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     $search_value = '';
     $current_page = 1;
     $offset = 0;
@@ -6,6 +8,22 @@
 
     // connect to db
     $conn = mysqli_connect('localhost','root', '', 'onlinelibraryportal');
+    
+    // create a new borrow
+    if (isset($_POST['borrow-book'])) {
+        unset($_SESSION['user-id-borrow']);
+
+        $user_id = mysqli_real_escape_string($conn, $_POST['user-id']);
+        $book_id = mysqli_real_escape_string($conn, $_POST['borrow-book']);
+        $current_date = date('Y-m-d');
+        $due_date = date('Y-m-d', strtotime($current_date.' + 10 days'));
+
+        $query = "INSERT INTO borrow (BorrowID, UserID, StaffID, BookID, DateOfBorrow, DueDate) VALUES (NULL, $user_id, 1, $book_id, '$current_date', '$due_date')";
+        mysqli_query($conn, $query);
+
+        $_SESSION['just-returned-book'] = $_POST['user-id'];
+        header('Location: dashboard.php');
+    }
 
     $search_entry = "";
     if (isset($_GET['book-search-btn'])) {
@@ -156,20 +174,23 @@
         <div class="catalog">
             <?php foreach ($books as $book): ?>
                 <div class="catalog-item">
-                    <div>
+                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                         <h3><?php echo htmlspecialchars($book['Title']); ?></h3>
-                        <h5>by <?php foreach ($book['Authors'] as $author): echo htmlspecialchars($author).', '; endforeach;?> (<?php echo htmlspecialchars($book['PubDate']); ?>)</h5>
+                        <h5>by <?php echo implode(', ', $book['Authors']) ?> (<?php echo htmlspecialchars($book['PubDate']); ?>)</h5>
                         <p>
                             <?php echo htmlspecialchars($book['Overview']); ?>
                         </p>
-                        <?php if ($book['Availability'] == 'Available'):?>
-                            <button class="btn blue">
+                        <?php if ($book['Availability'] == 'Not Available'):?>
+                            <button class="btn red" disabled>
+                        <?php elseif (isset($_SESSION['user-id-borrow'])): ?>
+                            <input type="hidden" name="user-id" value="<?php echo htmlspecialchars($_SESSION['user-id-borrow']) ?>">
+                            <button class="btn blue" name="borrow-book" value="<?php echo htmlspecialchars($book['BookID']) ?>">
                         <?php else: ?>
-                            <button class="btn red">
+                            <button class="btn blue" disabled>
                         <?php endif; ?>
                                 <?php echo htmlspecialchars($book['Availability']); ?>
                             </button>
-                    </div>
+                    </form>
                     <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
                 </div>
             <?php endforeach ?>
