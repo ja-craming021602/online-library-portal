@@ -1,7 +1,11 @@
 <?php
+
     $conn = mysqli_connect('localhost', 'root', '', 'onlinelibraryportal');
     session_start();
     unset($_SESSION['user-id-borrow']);
+
+    //checks for staff login session
+    include('session.php');
 
     // if clicked on [New Borrow]
     if (isset($_POST['new-borrow'])) {
