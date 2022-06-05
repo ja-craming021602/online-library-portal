@@ -53,10 +53,10 @@
                 </div>
                 <?php
                     if (!isset($_SESSION["staffID"])) {
-                        include("login/logged-out.php");
+                        include("templates/logged-out.php");
                     }
                     else {
-                        include("login/logged-in.php");
+                        include("templates/logged-in.php");
                     }
                 ?>      
             </div>
