@@ -1,5 +1,7 @@
 <?php
     session_start();
+    if (!isset($_SESSION['staffID']))
+        unset($_SESSION['user-id-borrow']);
 
     $search_value = '';
     $current_page = 1;
@@ -17,8 +19,9 @@
         $book_id = mysqli_real_escape_string($conn, $_POST['borrow-book']);
         $current_date = date('Y-m-d');
         $due_date = date('Y-m-d', strtotime($current_date.' + 10 days'));
+        $staff_id = mysqli_real_escape_string($conn, $_SESSION['staffID']);
 
-        $query = "INSERT INTO borrow (BorrowID, UserID, StaffID, BookID, DateOfBorrow, DueDate) VALUES (NULL, $user_id, 1, $book_id, '$current_date', '$due_date')";
+        $query = "INSERT INTO borrow (BorrowID, UserID, StaffID, BookID, DateOfBorrow, DueDate) VALUES (NULL, $user_id, $staff_id, $book_id, '$current_date', '$due_date')";
         mysqli_query($conn, $query);
 
         $_SESSION['just-returned-book'] = $_POST['user-id'];
@@ -184,7 +187,7 @@
                             <button class="btn red" disabled>
                         <?php elseif (isset($_SESSION['user-id-borrow'])): ?>
                             <input type="hidden" name="user-id" value="<?php echo htmlspecialchars($_SESSION['user-id-borrow']) ?>">
-                            <button class="btn blue" name="borrow-book" value="<?php echo htmlspecialchars($book['BookID']) ?>">
+                            <button class="btn blue clickable" name="borrow-book" value="<?php echo htmlspecialchars($book['BookID']) ?>">
                         <?php else: ?>
                             <button class="btn blue" disabled>
                         <?php endif; ?>
