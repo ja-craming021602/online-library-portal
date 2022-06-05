@@ -60,39 +60,25 @@
             </div>
 
             <form action="/action_page.php">
-                <div>
                     <input type="checkbox" id="complain" name="complain" size = "20px">
-                    <label for="scales">Complaint</label>
-                  </div>
-              
-                  <div>
+                    <label for="complain">Complaint</label><br>
                     <input type="checkbox" id="problem" name="problem" size = "20px">
-                    <label for="scales">Problem</label>
-                  </div>
-
-                  <div>
+                    <label for="problem">Problem</label><br>
                     <input type="checkbox" id="suggestion" name="suggestion" size = "20px">
-                    <label for="scales">Suggestion</label>
-                  </div>
-
-                  <div>
+                    <label for="suggestion">Suggestion</label><br>
                     <input type="checkbox" id="praise" name="praise" size = "20px">       
-                    <label for="scales">Praise</label>
-                  </div>
-
-                <div class=" info">
-                    <input type="text" placeholder="Enter yout comment on the space" size = "20 "> 
+                    <label for="praise">Praise</label><br>
+                    <input type="text" placeholder="Enter your comment"> 
                   
-                 <h3>Please tell us how to get touch you</h3>
+                    <h3>Please tell us how to get in touch with you.</h3>
   
                      <input type="text" placeholder="First Name "> 
                      <input type="text" placeholder="Last Name"> 
-                     <input type="text" placeholder="Email Addess">
-                     <button class="btn black clickable">Submit</button>
-                </div>
+                     <input type="text" placeholder="Email Address">
+                     <div><button class="btn black clickable">Submit</button></div>
 
 
-              </form>
+            </form>
         </div>
     
         <div class="staff">
