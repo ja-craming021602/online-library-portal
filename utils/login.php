@@ -13,14 +13,13 @@ if (isset($_POST['login'])) {
 
     if ($match > 0) {
         $_SESSION["staffID"] = $staffID;
-        header("location: index.php");
     } else {
-        header("location: index.php");
+        echo "<script>alert('Invalid credentials.')</script>";
     }
 }
 
 // behavior if logged in
-elseif (isset($_SESSION['staffID'])) {
+if (isset($_SESSION['staffID'])) {
 
     if(isset($_POST['dashboard'])) {
         header('Location: dashboard.php');
