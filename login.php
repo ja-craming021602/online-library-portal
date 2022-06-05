@@ -18,4 +18,6 @@ if (isset($_POST['login'])) {
         header("location: index.php");
     }
 }
+
+mysqli_close($conn);
 ?>

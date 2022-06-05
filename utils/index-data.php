@@ -16,4 +16,6 @@
     $recentAuthorsql = 'SELECT Author, BookID FROM rl_book_author';
     $recentAuthorResult = mysqli_query($db, $recentAuthorsql);
     $recentAuthor = mysqli_fetch_all($recentAuthorResult, MYSQLI_ASSOC);
+
+    mysqli_close($db);
 ?>
