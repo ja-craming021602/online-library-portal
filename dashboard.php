@@ -5,7 +5,7 @@
     unset($_SESSION['user-id-borrow']);
 
     //checks for staff login session
-    include('session.php');
+    include('utils/session.php');
 
     // if clicked on [New Borrow]
     if (isset($_POST['new-borrow'])) {
