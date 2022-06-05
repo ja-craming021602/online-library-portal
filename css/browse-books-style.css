@@ -4,6 +4,15 @@
     flex-direction: column;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
 .browse-nav {
     display: flex;
     padding: 0.5em;
