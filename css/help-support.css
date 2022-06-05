@@ -24,8 +24,16 @@
     margin: 0.5em auto;
 }
 
+.search-topics {
+    max-height: 40em;
+    overflow-y: scroll;
+}
 
-
+.faq {
+    border-radius: 12px;
+    padding: 0.5em;
+    margin: 0.5em 0;
+}
 
 
 .feedback{
@@ -38,7 +46,7 @@
 
 }
 
-.feedback input[type = 'text'] {
+.feedback input[type = 'text'], .feedback input[type='email'] {
     margin: 0.5em 0;
     width: 100%;
     

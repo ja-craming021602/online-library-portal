@@ -1,100 +1,115 @@
+<?php
+    include('utils/connection.php');
+
+    $query = 'SELECT Question, Answer FROM freq_ask_questions';
+
+    if (isset($_POST['faq-search'])) {
+        $search = mysqli_real_escape_string($conn, $_POST['search-item']);
+        $query = $query." WHERE Question LIKE '%$search%'";
+    }
+
+    $result = mysqli_query($conn, $query);
+    $faqs = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    mysqli_free_result($result);
+
+    mysqli_close($conn);
+?>
+
+
 <?php include('templates/head.php') ?>
-    <title>Help and Support</title>
-    <link rel="stylesheet" href="css/help-support.css">
+<title>Help and Support</title>
+<link rel="stylesheet" href="css/help-support.css">
 <?php include('templates/nav.php') ?>
 
-    <div class="main-content">
-        <!-- Main page content -->
+<div class="main-content">
+    <!-- Main page content -->
 
 
-        
-       
-         <!-- frequently ask section -->
-        <div class="freq-ask">
-         
-            <div class="search">
-
-                <img src="img/icons/question.png" alt="question" width="50px" height="50px">
-                <p>Frequently Asked Questions</p>
 
 
-                <input type="text" placeholder="Search..." size = "20px"> 
-                <button class="blue"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
-            
+    <!-- frequently ask section -->
+    <div class="freq-ask">
 
-            <div class="search-topics">
-                 
-                    <button class="btn black">
-                        <h1>How do I borrow materials?</h1>
-                        <p>
-                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! 
-                        </p>
-                   </button>
+        <form class="search" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
 
-                   <button class="btn black">
-                    <h1>How to log-in for online access?</h1>
+            <img src="img/icons/question.png" alt="question" width="50px" height="50px">
+            <p>Frequently Asked Questions</p>
+
+
+            <input type="text" placeholder="Search..." name="search-item">
+            <button class="blue" name="faq-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+
+
+        <div class="search-topics">
+
+            <?php foreach ($faqs as $faq): ?>
+
+                <div class="faq black">
+                    <h1><?php echo htmlspecialchars($faq['Question']); ?></h1>
                     <p>
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repellat consequatur exercitationem! Expedita id in cupiditate delectus facilis illo voluptatibus quod laudantium, quasi amet iure quia vitae explicabo! Amet quos officiis voluptas exercitationem fugiat, quibusdam reiciendis mollitia deserunt recusandae saepe veniam, rem perspiciatis quis tempora alias commodi soluta sapiente ab?
+                        <?php echo htmlspecialchars($faq['Answer']); ?>
                     </p>
+                </div>
 
-                    </button>
-            </div>
-
+            <?php endforeach; ?>
         </div>
 
-
-    
-        <!-- feedback section -->
-        <div class="feedback">
-
-            
+    </div>
 
 
-               
-            <div class = "logo">
-                
+
+    <!-- feedback section -->
+    <div class="feedback">
+
+
+
+
+
+        <div class="logo">
+
             <img src="img/icons/feedback.png" alt="library" width="50px" height="50px">
             <h2>Library Feedback</h2>
-            
-            </div>
 
-            <form action="/action_page.php">
-                    <input type="checkbox" id="complain" name="complain" size = "20px">
-                    <label for="complain">Complaint</label><br>
-                    <input type="checkbox" id="problem" name="problem" size = "20px">
-                    <label for="problem">Problem</label><br>
-                    <input type="checkbox" id="suggestion" name="suggestion" size = "20px">
-                    <label for="suggestion">Suggestion</label><br>
-                    <input type="checkbox" id="praise" name="praise" size = "20px">       
-                    <label for="praise">Praise</label><br>
-                    <input type="text" placeholder="Enter your comment"> 
-                  
-                    <h3>Please tell us how to get in touch with you.</h3>
-  
-                     <input type="text" placeholder="First Name "> 
-                     <input type="text" placeholder="Last Name"> 
-                     <input type="text" placeholder="Email Address">
-                     <div><button class="btn black clickable">Submit</button></div>
-
-
-            </form>
         </div>
-    
-        <div class="staff">
-            <button class="btn gray">
-                   <img src="img/icons/read.png" alt="staff icon" width="50px" height="100px">
-                   <h2>LIBRARY STAFF AND UTTILITY </h2>
 
-                       <h4>CLENT JAPHET POLEDO</h4>
-                       <h4>ROD JHON  CAGAY</h4>
-                       <h4>TRISHIA ALMADIN</h4>
-                       <h4>IRENE SABULAO</h4>
+        <form action="utils/insert.php" method="POST">
 
-            </button>
-          </div>
+            <input type="radio" name="feedback_type" id="complain" value="complain" checked>
+            <label for="complain">Complaint</label><br>
+            <input type="radio" name="feedback_type" id="problem" value="problem">
+            <label for="problem">Problem</label><br>
+            <input type="radio" name="feedback_type" id="suggestion" value="suggestion">
+            <label for="suggestion">Suggestion</label><br>
+            <input type="radio" name="feedback_type" id="praise" value="praise">
+            <label for="praise">Praise</label><br>
+            <input type="text" placeholder="Enter your comment" name="feedback" required>
 
-    </div> <!-- end of main content -->
+            <h3>Please tell us how to get in touch with you.</h3>
+
+            <input type="text" name ="firstname" placeholder="First Name" required>
+            <input type="text" name ="lastname" placeholder="Last Name" required>
+            <input type="email" name ="email" placeholder="Email Address" required>
+            <div><button class="btn black clickable" name="info">Submit</button></div>
+
+
+        </form>
+    </div>
+
+    <div class="staff">
+        <button class="btn gray">
+            <img src="img/icons/read.png" alt="staff icon" width="50px" height="100px">
+            <h2>LIBRARY STAFF AND UTTILITY </h2>
+
+            <h4>CLENT JAPHET POLEDO</h4>
+            <h4>ROD JHON CAGAY</h4>
+            <h4>TRISHIA ALMADIN</h4>
+            <h4>IRENE SABULAO</h4>
+
+        </button>
+    </div>
+
+</div> <!-- end of main content -->
 
 
 
