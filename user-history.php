@@ -1,115 +1,188 @@
 <?php include('templates/head.php') ?>
-    <title>User History</title>
-    <link rel="stylesheet" href="css/user-history.css">
+<title>User History</title>
+<link rel="stylesheet" href="css/user-history.css">
 <?php include('templates/nav.php') ?>
 
 
-     <div class="main-content">
-        <!-- Main page content -->
-       
-    <div class = "user-info">
+<div class="main-content">
+    <!-- Main page content -->
 
-        <div class="num-search">
-         
-            <div class="search">
-                <h2>Enter User ID</h2>
-                <input type="text" placeholder="000 000 0001" size = "20" > 
-                <button class="blue"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <div class="user-area">
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET" class="card user-search">
+            <h3>Enter User ID</h3>
+            <input type="text" placeholder="User ID" name="user-id">
+            <div><button class="btn black clickable" name="search-user">Submit</i></button></div>
+        </form>
+        <div class="card">
+            <p class="inner-bubble center-text">
+                <i class="fa-solid fa-triangle-exclamation"></i>User Information Found!
+            </p>
+            <div class="user-info">
+                <b>Last Name </b> <p class="inner-bubble">DELA CRUZ</p>
+                <b>First Name</b> <p class="inner-bubble">JUAN</p>
+                <b>User ID   </b> <p class="inner-bubble">3</p>
             </div>
+        </div>
+    </div>
+    <div class="borrow-area card">
+        <div class="center"><h2><i class="fa-solid fa-box-archive"></i> User Track Record</h2></div>
+        <div class="center"><h3>10 Results</h3></div>
 
+        <div class="inner-bubble hidden-column-label">
+            <div class="label">Title</div>
+            <div class="label">Author</div>
+            <div class="label">Date Borrowed</div>
+            <div class="label">Date Returned</div>
         </div>
 
-        <div class="data">
-            
-        <button class="btn black circle">
-            <img src="img/icons/alert.png" alt="file">
-            User Information Found</button>
-
-         <h3>Last Name</h3><input type="text" value ="DELA CRUZ"> 
-         <h3>First Name</h3><input type="text" value ="JUAN"> 
-         <h3>User ID</h3><input type="text" value ="000 000 0001">
-         <h3>Date Registered</h3><input type="text" value =" 02 16 02 ">
-
-        </div> 
-
-    </div>
-
-    <div class="history-container">
-            
-            <div class ="logo" >
-            <img src="img/icons/file.png" alt="file"><h1>User Track History</h1>
-             </div>
-
-            <div class="header-table">
-              <div class="headings">
-                <span class="Book Title">Book Title</span>
-                <span class="Author">Author Name</span>
-                <span class="">Date Borrowed</span>
-                <span class="">Date Returned</span>
-              </div>
-          
-              <div class="policy">
-                <span>  
-                    <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
-                </span>
-              <div></div>
-                <span>Name</span>
-                <span>01 / 04 / 22</span>
-
-                <span>
-                    <p>05 / 04 / 22</p>
-                </span>
-              </div>
-
-              <div class="policy">
-                <span>  
-                    <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
-                </span>
-                <span>Name</span>
-                <span>01 / 04 / 22</span>
-
-                <span>
-                    <p>01 / 04 / 22</p>
-                  
-                </span>
-              </div>
-
-              <div class="policy">
-                <span>  
-                    <img src="img/icons/cover-page.png" alt="book icon" width="150px" height="200px">
-                </span>
-                <span>Name</span>
-                <span>01 / 04 /22</span>
-
-                <span>
-                    <button class="btn red clickable circle"><a href={row.link}>Due 22 / 04 / 22</a></button>
-                  
-                </span>
-              </div>
-          
+        <div class="borrow-list">
+            <div class="inner-bubble">
+                <div class="hidden-label">Title: </div>
+                <div class="label">This is a title</div>
+                <div class="hidden-label">Author: </div>
+                <div class="label">J Riz asdjalskdjklsadjaskldjaklsjdsklaj</div>
+                <div class="hidden-label">Borrowed: </div>
+                <div class="label">12/12/1221</div>
+                <div class="hidden-label">Returned: </div>
+                <div class="label">12/12/2123</div>
             </div>
-
-            
-
+            <div class="inner-bubble">
+                <div class="hidden-label">Title: </div>
+                <div class="label">This is a title</div>
+                <div class="hidden-label">Author: </div>
+                <div class="label">J Riz</div>
+                <div class="hidden-label">Borrowed: </div>
+                <div class="label">12/12/1221</div>
+                <div class="label"><button class="btn red">Due: 10/22/1010</button></div>
+            </div>
+            <div class="inner-bubble">
+                <div class="hidden-label">Title: </div>
+                <div class="label">This is a title</div>
+                <div class="hidden-label">Author: </div>
+                <div class="label">J Riz</div>
+                <div class="hidden-label">Borrowed: </div>
+                <div class="label">12/12/1221</div>
+                <div class="hidden-label">Returned: </div>
+                <div class="label">12/12/2123</div>
+            </div>
+            <div class="inner-bubble">
+                <div class="hidden-label">Title: </div>
+                <div class="label">This is a title</div>
+                <div class="hidden-label">Author: </div>
+                <div class="label">J Riz</div>
+                <div class="hidden-label">Borrowed: </div>
+                <div class="label">12/12/1221</div>
+                <div class="label"><button class="btn red">Due: 10/22/1010</button></div>
+            </div>
+            <div class="inner-bubble">
+                <div class="hidden-label">Title: </div>
+                <div class="label">This is a title</div>
+                <div class="hidden-label">Author: </div>
+                <div class="label">J Riz</div>
+                <div class="hidden-label">Borrowed: </div>
+                <div class="label">12/12/1221</div>
+                <div class="hidden-label">Returned: </div>
+                <div class="label">12/12/2123</div>
+            </div>
+            <div class="inner-bubble">
+                <div class="hidden-label">Title: </div>
+                <div class="label">This is a title</div>
+                <div class="hidden-label">Author: </div>
+                <div class="label">J Riz</div>
+                <div class="hidden-label">Borrowed: </div>
+                <div class="label">12/12/1221</div>
+                <div class="label"><button class="btn red">Due: 10/22/1010</button></div>
+            </div>
+            <div class="inner-bubble">
+                <div class="hidden-label">Title: </div>
+                <div class="label">This is a title</div>
+                <div class="hidden-label">Author: </div>
+                <div class="label">J Riz</div>
+                <div class="hidden-label">Borrowed: </div>
+                <div class="label">12/12/1221</div>
+                <div class="label"><button class="btn red">Due: 10/22/1010</button></div>
+            </div>
+            <div class="inner-bubble">
+                <div class="hidden-label">Title: </div>
+                <div class="label">This is a title</div>
+                <div class="hidden-label">Author: </div>
+                <div class="label">J Riz</div>
+                <div class="hidden-label">Borrowed: </div>
+                <div class="label">12/12/1221</div>
+                <div class="hidden-label">Returned: </div>
+                <div class="label">12/12/2123</div>
+            </div>
+            <div class="inner-bubble">
+                <div class="hidden-label">Title: </div>
+                <div class="label">This is a title</div>
+                <div class="hidden-label">Author: </div>
+                <div class="label">J Riz</div>
+                <div class="hidden-label">Borrowed: </div>
+                <div class="label">12/12/1221</div>
+                <div class="label"><button class="btn red">Due: 10/22/1010</button></div>
+            </div>
+            <div class="inner-bubble">
+                <div class="hidden-label">Title: </div>
+                <div class="label">This is a title</div>
+                <div class="hidden-label">Author: </div>
+                <div class="label">J Riz</div>
+                <div class="hidden-label">Borrowed: </div>
+                <div class="label">12/12/1221</div>
+                <div class="label"><button class="btn red">Due: 10/22/1010</button></div>
+            </div>
+            <div class="inner-bubble">
+                <div class="hidden-label">Title: </div>
+                <div class="label">This is a title</div>
+                <div class="hidden-label">Author: </div>
+                <div class="label">J Riz</div>
+                <div class="hidden-label">Borrowed: </div>
+                <div class="label">12/12/1221</div>
+                <div class="hidden-label">Returned: </div>
+                <div class="label">12/12/2123</div>
+            </div>
+            <div class="inner-bubble">
+                <div class="hidden-label">Title: </div>
+                <div class="label">This is a title</div>
+                <div class="hidden-label">Author: </div>
+                <div class="label">J Riz</div>
+                <div class="hidden-label">Borrowed: </div>
+                <div class="label">12/12/1221</div>
+                <div class="label"><button class="btn red">Due: 10/22/1010</button></div>
+            </div>
+            <div class="inner-bubble">
+                <div class="hidden-label">Title: </div>
+                <div class="label">This is a title</div>
+                <div class="hidden-label">Author: </div>
+                <div class="label">J Riz</div>
+                <div class="hidden-label">Borrowed: </div>
+                <div class="label">12/12/1221</div>
+                <div class="label"><button class="btn red">Due: 10/22/1010</button></div>
+            </div>
+            <div class="inner-bubble">
+                <div class="hidden-label">Title: </div>
+                <div class="label">This is a title</div>
+                <div class="hidden-label">Author: </div>
+                <div class="label">J Riz</div>
+                <div class="hidden-label">Borrowed: </div>
+                <div class="label">12/12/1221</div>
+                <div class="hidden-label">Returned: </div>
+                <div class="label">12/12/2123</div>
+            </div>
+            <div class="inner-bubble">
+                <div class="hidden-label">Title: </div>
+                <div class="label">This is a title</div>
+                <div class="hidden-label">Author: </div>
+                <div class="label">J Riz</div>
+                <div class="hidden-label">Borrowed: </div>
+                <div class="label">12/12/1221</div>
+                <div class="label"><button class="btn red">Due: 10/22/1010</button></div>
+            </div>
+        </div>
     </div>
 
+</div>
 
 
-    <div class="sort">
-            <h3>Sort by</h3> 
-                    <select id="select1">
-                    <option value="value1">Alphabetically</option>
-                    <option value="value2"> Date Borrowed</option>
-                    <option value="value3"> Date Returned</option>
-            </select>
-
-            <h3> 3 items found </h3>
-                 
-    </div>
-
-     </div>
-
-    
 
 
 
