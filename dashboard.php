@@ -1,6 +1,6 @@
 <?php
 
-    $conn = mysqli_connect('localhost', 'root', '', 'onlinelibraryportal');
+    include('utils/connection.php');
     session_start();
     unset($_SESSION['user-id-borrow']);
 

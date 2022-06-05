@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("connection.php");
+include("utils/connection.php");
 
 if (isset($_POST['login'])) {
     $staffID    = $_POST['staffID'];

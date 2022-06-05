@@ -7,7 +7,7 @@
     $books_per_page = 6;
 
     // connect to db
-    $conn = mysqli_connect('localhost','root', '', 'onlinelibraryportal');
+    include('utils/connection.php');
     
     // create a new borrow
     if (isset($_POST['borrow-book'])) {

@@ -1,5 +1,5 @@
 <?php
-    include('connection.php');
+    include('utils/connection.php');
     
     $db = $conn;
 
