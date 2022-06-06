@@ -46,8 +46,8 @@ if(isset($_GET['ID'])){
 
 ?>
 <?php include('templates/head.php') ?>
-    <title><?php echo htmlspecialchars($book['Title']); ?></title>
-    <link rel="stylesheet" href="css/bookpageTrial.css">
+    <title><?php echo htmlspecialchars($book_details['Title']); ?></title>
+    <link rel="stylesheet" href="css/bookpage.css">
 <?php include('templates/nav.php') ?>     
 
     <?php if(isset($_GET['ID'])): ?>
