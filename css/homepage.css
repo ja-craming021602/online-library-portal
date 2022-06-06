@@ -24,13 +24,12 @@ p1{
 }
 
 .recent-list{
-    height: 40em;
+    max-height: 41.5em;
     border-radius: 12px;
     padding: 1em;
     display: flex;
     flex-direction: column;
     gap: 0.5em;
-    cursor: pointer;
     overflow-y: scroll;
 }
 
@@ -41,18 +40,17 @@ p1{
     padding: 1em;
     display: flex;
     gap: 0.3em;
-    cursor: pointer;
 }
 
 .book-img{
+    cursor: pointer;
     height: 190px;
     margin: 0;
     top: 50%;
-    -ms-transform: translateY(10%);
-    transform: translateY(10%);
 }
 
 .book-text{
+    cursor: pointer;
     margin: 0;
     display: block;
     flex-direction: column;
@@ -67,6 +65,18 @@ p1{
 .book-text p2{
     font-weight: bold;
     font-size: 20px;
+}
+
+.overview{
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    display: block;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 9em;
+    line-height: 1.8em;
 }
 
 .right-side{
@@ -111,7 +121,7 @@ p1{
 }
 
 .intro p2{
-    font-size: 85%;
+    font-size: 95%;
 }
 
 .login {
@@ -153,7 +163,6 @@ p1{
     display: flex;
     flex-direction: row;
     gap: 0.5em;
-    cursor: pointer;
     overflow-x: scroll;
 }
 
@@ -161,6 +170,7 @@ p1{
     background-color: white;
     border-radius: 12px;
     padding: 10px;
+    cursor: pointer;
 }
 
 .top-book p{
