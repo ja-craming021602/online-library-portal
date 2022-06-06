@@ -17,6 +17,7 @@ if (isset($_GET['sort-by'])) {
     } else {
         $_SESSION['browse-book-sort'] = $_GET['sort-by'];
     }
+    unset($_GET['sort-by']);
 }
 // validation
 if ($_SESSION['browse-book-sort'] != 'DateAdded' && $_SESSION['browse-book-sort'] != 'Rating' && $_SESSION['browse-book-sort'] != 'PubDate' && $_SESSION['browse-book-sort'] != 'Title') {
@@ -149,10 +150,10 @@ mysqli_close($conn);
             <input type="checkbox" id="sort">
             <label for="sort" class="unselectable"><i class="fa-solid fa-angle-right"></i><i class="fa-solid fa-angle-down"></i>Sort</label>
             <ul>
-                <li><a href="browse-books.php?sort-by=DateAdded">Date Added</a></li>
-                <li><a href="browse-books.php?sort-by=Rating">Popularity</a></li>
-                <li><a href="browse-books.php?sort-by=PubDate">Release Date</a></li>
-                <li><a href="browse-books.php?sort-by=Title">Title</a></li>
+                <li><a href="browse-books.php?sort-by=DateAdded&<?php echo htmlspecialchars(http_build_query($_GET)); ?>" <?php if ($_SESSION['browse-book-sort'] == 'DateAdded') echo "class='active'"; ?>>Date Added</a></li>
+                <li><a href="browse-books.php?sort-by=Rating&<?php echo htmlspecialchars(http_build_query($_GET)); ?>" <?php if ($_SESSION['browse-book-sort'] == 'Rating') echo "class='active'"; ?>>Popularity</a></li>
+                <li><a href="browse-books.php?sort-by=PubDate&<?php echo htmlspecialchars(http_build_query($_GET)); ?>" <?php if ($_SESSION['browse-book-sort'] == 'PubDate') echo "class='active'"; ?>>Release Date</a></li>
+                <li><a href="browse-books.php?sort-by=Title&<?php echo htmlspecialchars(http_build_query($_GET)); ?>" <?php if ($_SESSION['browse-book-sort'] == 'Title') echo "class='active'"; ?>>Title</a></li>
             </ul>
         </div>
         <div class="filter drop-menu-click">

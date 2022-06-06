@@ -13,6 +13,10 @@ a:hover {
     text-decoration: underline;
 }
 
+.active {
+    font-weight: bold;
+}
+
 .browse-nav {
     display: flex;
     padding: 0.5em;
