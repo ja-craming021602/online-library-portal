@@ -1,6 +1,31 @@
 <?php
 session_start();
 
+/* determine the sorting order of the books */
+
+if (!isset($_SESSION['browse-book-sort'])) 
+    $_SESSION['browse-book-sort'] = 'DateAdded';
+if (!isset($_SESSION['browse-book-order'])) 
+    $_SESSION['browse-book-order'] = 'ASC';
+if (isset($_GET['sort-by'])) {
+    if ($_SESSION['browse-book-sort'] == $_GET['sort-by']) {
+        if ($_SESSION['browse-book-order'] == 'ASC') {
+            $_SESSION['browse-book-order'] = 'DESC';
+        } else {
+            $_SESSION['browse-book-order'] = 'ASC';
+        }
+    } else {
+        $_SESSION['browse-book-sort'] = $_GET['sort-by'];
+    }
+}
+// validation
+if ($_SESSION['browse-book-sort'] != 'DateAdded' && $_SESSION['browse-book-sort'] != 'Rating' && $_SESSION['browse-book-sort'] != 'PubDate' && $_SESSION['browse-book-sort'] != 'Title') {
+    unset($_SESSION['browse-book-sort']);
+    header("Location: ${_SERVER['PHP_SELF']}");
+}
+
+/* end of sorting */
+
 $search_value = '';
 $current_page = 1;
 $offset = 0;
@@ -44,7 +69,9 @@ $query = "SELECT BookID, Title, Overview, PubDate FROM book";
 if ($search_entry) {
     $query = $query . " WHERE Title LIKE '%$search_entry%'";
 }
-$query = $query . " ORDER BY DateAdded DESC";
+$sort = mysqli_real_escape_string($conn, $_SESSION['browse-book-sort']);
+$order = mysqli_real_escape_string($conn, $_SESSION['browse-book-order']);
+$query = $query . " ORDER BY $sort $order";
 $result = mysqli_query($conn, $query);
 
 // storing to variable
@@ -122,11 +149,10 @@ mysqli_close($conn);
             <input type="checkbox" id="sort">
             <label for="sort" class="unselectable"><i class="fa-solid fa-angle-right"></i><i class="fa-solid fa-angle-down"></i>Sort</label>
             <ul>
-                <li><a href="#">Name</a></li>
-                <li><a href="#">Author</a></li>
-                <li><a href="#">Publisher</a></li>
-                <li><a href="#">Release Date</a></li>
-                <li><a href="#">Popularity</a></li>
+                <li><a href="browse-books.php?sort-by=DateAdded">Date Added</a></li>
+                <li><a href="browse-books.php?sort-by=Rating">Popularity</a></li>
+                <li><a href="browse-books.php?sort-by=PubDate">Release Date</a></li>
+                <li><a href="browse-books.php?sort-by=Title">Title</a></li>
             </ul>
         </div>
         <div class="filter drop-menu-click">
