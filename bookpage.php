@@ -1,32 +1,78 @@
+<?php 
+// establish connection
+include('utils/connection.php');
+
+if(isset($_GET['ID'])){
+    $ID = mysqli_real_escape_string($conn, $_GET['ID']);
+    $sql = "SELECT * FROM book WHERE BookID = '$ID'";
+    $sql2 = "SELECT * FROM rl_book_genre WHERE BookID = '$ID'";
+    $sql1 = "SELECT * FROM rl_book_author WHERE BookID = '$ID'";
+    $sql3 = "SELECT DateReturned FROM borrow WHERE BookID = '$ID'";
+    
+    $result1 = mysqli_query($conn, $sql1);
+    $result2 = mysqli_query($conn, $sql2);
+    $result = mysqli_query($conn, $sql);
+    $result3 = mysqli_query($conn, $sql3);
+
+    $topRated = mysqli_fetch_array($result);
+    $trial = mysqli_fetch_all($result1, MYSQLI_ASSOC);
+    $genre2 = mysqli_fetch_all($result2, MYSQLI_ASSOC);
+    $borrow = mysqli_fetch_array($result3,MYSQLI_ASSOC);
+
+    $trees = array_pop($borrow);
+
+    mysqli_free_result($result);
+    mysqli_free_result($result1);
+    mysqli_free_result($result2);
+    mysqli_free_result($result3);
+
+}
+
+
+?>
 <?php include('templates/head.php') ?>
     <title>Book Page</title>
-    <link rel="stylesheet" href="css/bookpage.css">
-<?php include('templates/nav.php') ?>           
+    <link rel="stylesheet" href="css/bookpageTrial.css">
+<?php include('templates/nav.php') ?>     
 
-    <div class="container"> 
+    <?php if(isset($_GET['ID'])): ?>
+    <div class="container">     
         <div class="sidebarL"> 
             <div class="pictureBar">
                 <img src="img/icons/cover-page.png" alt="Sample volume 3">
-                <button class="btn blue clickable">Available in Library</button>
+                <button class="btn blue clickable">
+                    <?php 
+                    if($trees == NULL){
+                        echo "Unavailable"; 
+                    }else{
+                        echo "Available in Library";
+                    }
+                ?>
+                </button>
                 </div>
             <div class="shareBar">
                 <p3>Share this Book:</p3><br>
-                <button class="btn blue clickable circle"><i class="fa-brands fa-facebook"></i> </button>
-                <button class="btn blue clickable circle"><i class="fa-brands fa-twitter"></i></button>
-                <button class="btn blue clickable circle"><i class="fa-solid fa-envelope"></i></button>
-                <button class="btn blue clickable circle"><i class="fa-brands fa-tiktok"></i></button>
+                <button class="btn blue clickable circle fb"><i class="fa-brands fa-facebook"></i> </button>
+                <button class="btn blue clickable circle twitter"><i class="fa-brands fa-twitter"></i></button>
+                <button class="btn blue clickable circle telegram"><i class="fa fa-telegram"></i></button>
+                <button class="btn blue clickable circle reddit"><i class="fa brands fa-reddit-alien"></i></button>
             </div>
         </div>
-
+<!------------------------------------MTRIAL---------------------------------------------->
         <div class="mainBar">
             <div class="titleBar">
                 <div class="mainTitle">
-                    <h1>Book Title</h1>
-                    <h2>By Author</h2>
+                    <p10><?php echo $topRated['Title'];?></p10>
+                    <p9>
+                       <p9>By</p9>
+                    <?php foreach($trial as $try){ ?>
+                    <?php echo htmlspecialchars($try['Author']); ?>
+                    <?php }?>
+                    </p9>
                 </div>
                 <div class="hyperlinks">
-                    <a class="one" href="https://i.redd.it/29pgg3ifyvp21.png">Borrow history</a>
-                    <a class="two" href="https://c.tenor.com/qQk6DhSV1qUAAAAd/anime-grand.gif">Edit</a>
+                    <a class="one" href="https://i.redd.it/29pgg3ifyvp21.png">Borrow history</a><!---- link for USER HISTORY -->
+                    <a class="two" href="https://c.tenor.com/qQk6DhSV1qUAAAAd/anime-grand.gif">Edit</a><!---- link for DASHBOARD -->
                 </div>
             </div>
             <div class="publishBar">
@@ -34,100 +80,85 @@
                 <p3>Publisher</p3>
                 <p3>Language</p3>
                 <p3>Pages </p3>
-                <p2>YYYY-MM-DD </p2>
-                <p2>Publishing Company </p2>
-                <p2>English </p2>
-                <p2>1234 </p2>
+                <p2><?php echo $topRated['PubDate'];?> </p2>
+                <p2><?php echo $topRated['Publisher'];?> </p2>
+                <p2><?php echo $topRated['Language'];?> </p2>
+                <p2><?php echo $topRated['PageCount'];?> </p2>
             </div>
             <div class="overBar">
                 <p3>Overview</p3>
-                <p2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                    Curabitur sit amet enim urna. Ut ac eros at tortor eleifend
-                    cursus et in mauris. Sed nec venenatis purus, et lobortis 
-                    nisi. Proin gravida imperdiet volutpat. Pellentesque quis 
-                    tellus ullamcorper, posuere ante eu, vestibulum nibh. Class 
-                    aptent taciti sociosqu ad litora torquent per conubia nostra, 
-                    per inceptos himenaeos. In dictum sodales dui ut fermentum. Curabitur 
-                    at turpis laoreet, tempus turpis sit amet, pharetra lectus.
-                    Fusce imperdiet mauris et faucibus gravida. Aliquam quis enim 
-                    tincidunt leo faucibus porta in vitae lorem. Sed cursus posuere 
-                    maximus. Pellentesque sollicitudin nibh id orci rhoncus, a fringilla 
-                    ex egestas. Vivamus faucibus sollicitudin tellus at suscipit. 
-                    Praesent at orci lacus. Nullam ut metus enim. Vestibulum lobortis 
-                    tincidunt ullamcorper. Pellentesque feugiat, libero vitae semper 
-                    eleifend, lorem massa pretium elit, id aliquet metus ipsum sed urna. 
-                    Aliquam erat volutpat. In gravida, quam eu consequat mollis, nisi 
-                    lacus rhoncus urna, eget sagittis nibh nisl nec nunc. Fusce 
-                    ullamcorper, erat eu mollis porttitor, justo neque aliquet magna, a 
-                    lobortis erat justo non urna.Morbi et augue convallis, semper enim ac, 
-                    ullamcorper nulla. Aliquam congue erat sed nibh molestie, ut 
-                    ultricies justo mollis. Nullam quis velit sit amet justo aliquam 
-                    tincidunt egestas et mi. Nullam eget maximus magna, eu faucibus massa. 
-                    Aliquam erat volutpat. Integer a ornare lacus. Quisque volutpat lacus 
-                    leo, eu venenatis justo elementum sit amet. Aliquam nec elit sit amet 
-                    erat pharetra laoreet tempor non turpis. Donec lacinia neque ut nulla 
-                    malesuada dapibus. Mauris non quam metus. Phasellus mattis efficitur 
-                    vestibulum. Etiam id tempor arcu, sit amet mollis libero.</p2>
+                <p2><?php echo $topRated['Overview'];?></p2>
             </div>
         </div>
-
+<!------------------------------------MTRIAL---------------------------------------------->
         <div class="sidebarR">
             <div class="detailBar">
-                <p3>Book Details</p3>
+                <h2>Book Details</h2>
             </div>
             <div class="isbnBar">
                 <p3>ISBN</p3>
-                <p2>12345678999</p2>
-                <p2>12345678999</p2>
+                <p2><?php echo $topRated['ISBN'];?></p2>
             </div>
             <div class="genreBar">
                 <p3>Genre</p3>
-                <p2>Action</p2>
-                <p2>Comedy</p2>
-                <p2>Romance</p2>
+                <?php if($genre2): ?>
+                <?php foreach($genre2 as $try2){ ?>
+                    <p2><?php echo htmlspecialchars($try2['Genre']) ;?></p2>
+                <?php }?>
+
+                <?php else: ?>
+                    <p3> None</p3>
+                    <?php endif; ?>
+                
             </div>
             <div class="ratingBar">
                 <p3>User Ratings</p3>
                 <div class="row">
-                    <div class="side"> <p2>5 stars</p2>
-                    <div class="middle"> 
-                        <div class="bar-container">
-                            <div class="bar-5"></div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="side"> <p2>4 stars</p2>
-                    <div class="middle">
-                        <div class="bar-container">
-                          <div class="bar-4"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="side"> <p2>3 stars</p2>
-                    <div class="middle">
-                        <div class="bar-container">
-                          <div class="bar-3"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="side"> <p2>2 stars</p2>
-                    <div class="middle">
-                        <div class="bar-container">
-                          <div class="bar-2"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="side"> <p2>1 star</p2>
-                    <div class="middle">
-                        <div class="bar-container">
-                          <div class="bar-1"></div>
-                        </div>
-                      </div>
-                    </div>
+                <p2><?php echo $topRated['Rating'];?></p2>
                 </div>
             </div>
         </div>
-    </div>    
         
+    </div>  
+    <?php else: ?> <!------ DISPALY ERROR PAGE if requested id not found-->
+            <p> Error </p>
+            <p> Requested page not found </p>
+        <?php endif; ?>  
+
+    
+
+    <script>
+        const pageURL = location.href
+        const fb = document.querySelector('.fb')
+        const twitter =  document.querySelector('.twitter')
+        const telegram = document.querySelector('.telegram')
+        const reddit = document.querySelector('.reddit')
+
+        const twitterApi = `https://twitter.com/intent/tweet?text=${pageURL}`;
+        const fbApi = `https://www.facebook.com/sharer/sharer.php?u=${pageURL}`
+        console.log(pageURL)
+        const telegramApi = `https://t.me/share/url?url=${pageURL}`
+        const redditApi = `https://www.reddit.com/submit?url=${pageURL}`
+
+        fb.addEventListener('click', ()=>{
+            window.open(url = fbApi, target='blank')
+        })
+
+        twitter.addEventListener('click', ()=>{
+            window.open(url = twitterApi, target='blank')
+        })
+
+        telegram.addEventListener('click', ()=>{
+            window.open(url = telegramApi, target='blank')
+        })
+
+        reddit.addEventListener('click', ()=>{
+            window.open(url = redditApi, target='blank')
+        })
+
+        
+
+    
+        </script>
 
 <?php include('templates/footer.php') ?>
