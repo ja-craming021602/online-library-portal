@@ -32,9 +32,9 @@
                                 }
                             }?>
                             (<?php echo $recentPubDate; ?>) </p>
-                        <p>
+                        <div class="overview">
                             <?php echo $recentOverview; ?>
-                        </p>
+                        </div>
                     </div>
                 </div>
                     <?php
@@ -47,8 +47,12 @@
                     <!-- Website Intro -->
                     <p1 class="intro-title">Website Introduction</p1>
                     <p2 align="justify">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a dui mi. Nullam turpis nibh, eleifend sed auctor sit amet, cursus ac risus. Sed ultricies ligula elit, eu lacinia tortor aliquet id. Mauris id ullamcorper urna. Duis mollis a ante ut pulvinar. Mauris mollis nulla risus. Phasellus tempus faucibus fringilla. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-                        Vivamus eleifend ligula vel viverra ullamcorper. Nullam id ex quam. Sed id risus eu lorem congue...
+                    The Library’s website offers a variety of search tools and links to provide members of 
+                    the Library community with 24-hour global access to all of the Library’s licensed 
+                    databases and web-based services. Library users are offered a wide range of tools that 
+                    expose them to the broadest possibilities; the Library also provides a number of 
+                    services — many of them transparent to the user — to connect users with the material 
+                    they desire regardless of where it may reside.
                     </p2>
                 </div>
                 <?php

@@ -1,105 +1,116 @@
 .main-content {
-
-    padding: 1em;
     display: flex;
-    font-family:Arial, Helvetica, sans-serif;
-    gap: 15px;
-}
-
-
-.user-info {
-
-    flex:1;
+    flex-direction: column;
+    gap: 1em;
     padding: 1em;
-    background-color: #7f7f7f;
-    font: bold 24px/45px Helvetica, Sans-Serif;
-    border-radius: 12px;
-    text-align: center;
-    justify-content: center;
-    
-
 }
 
-.num-search{
-    
+.card {
     padding: 1em;
-    background-color: #7f7f7f;
-    border-radius: 12px;
-    text-align: center;
-    justify-content: center;
+    background-color: #d1d0d0;
 }
 
-.data{
-
-    padding: 1em;
-    background-color: #4a4b57;
-    border-radius: 12px;
-    text-align: center;
-    justify-content: center;
-
-}
-
-.history-container{
-  font: bold 24px/45px Helvetica, Sans-Serif;
-  flex:3;
-  text-align: center;
-  justify-content: center;
-}
-
-
-
-.header-table,.data {
-    
-    color: rgb(0, 0, 0);
-    text-align: center;
-    font: bold 24px/45px Helvetica, Sans-Serif;
-    
-    
-  }
-  
-  .headings, .policy, .logo {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    margin-bottom: 1em;
-    padding: 1em;
-  }
-  
-  .heading {
-    flex-basis: 33.333%;
-    font-weight: bold;
-  }
-  
-  .policy {
-    border-radius: 2em;
+.inner-bubble {
     background-color: white;
-    margin-bottom: 20px;
-    -moz-box-shadow: 0 0 3px grey;
-    -webkit-box-shadow: 0 0 3px grey;
-    box-shadow: 0 0 5px grey;
-  }
-  
-  span {
-    flex-basis: 33.333%;
-  }
-  
-  a {
-    text-decoration: none;
-    color: #4c4c4c;
-  }
-
-
-
-
-.sort{
-
-    
-    padding: 0.5em;
-    background-color: #7f7f7f;
     border-radius: 12px;
-    justify-content: center;
+    padding: 0.5em;
+    width: 100%;
+}
 
+.center-text {
+    text-align: center;
+}
+
+.center {
+    width: fit-content;
+    margin: auto;
+}
+
+.user-search input {
+    width: 100%;
+    margin: 0.5em 0;
+}
+
+.user-search button {
+    padding: 0.5em 3em;
+}
+
+.user-search div {
+    width: fit-content;
+    margin: auto;
+}
+
+.user-search h3 {
+    margin: 0.3em 0;
+}
+
+.user-info b {
+    display: inline-block;
+    width: 30%;
+}
+
+.user-info p {
+    display: inline-block;
+    width: 60%;
+}
+
+.borrow-list {
+    max-height: 40em;
+    overflow-y: scroll;
+}
+
+.borrow-list > div{
+    margin: 1em 0;
+}
+
+.borrow-list button {
+    padding: 0.5em 3em;
+}
+
+.hidden-label {
+    font-weight: bold;
+    text-align: center;
+}
+
+.label {
+    padding: 0.3em;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hidden-column-label {
+    display: none;
+    font-weight: bold;
+    font-size: 1.2em;
+    background-color: #e1e0e0;
+}
+
+@media (min-width: 800px) {
+    .hidden-label {
+        display: none;
+    }
+
+    .label {
+        display: inline-block;
+        width: 24%;
+    }
+
+    .hidden-column-label {
+        display: block;
+    }
+}
+
+@media (min-width: 1200px) {
+    .main-content {
+        flex-direction: row;
+    }
+
+    .user-area {
+        width: 30%;
+    }
+
+    .borrow-area {
+        width: 70%;
+    }
 }

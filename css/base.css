@@ -14,7 +14,7 @@ select {
     font-family: 'Inter', sans-serif;
 }
 
-input[type='text'] {
+input[type='text'], input[type='email'] {
     border: none;
     border-radius: 12px;
     padding: 0.5em 1em;

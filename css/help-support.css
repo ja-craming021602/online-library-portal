@@ -3,7 +3,8 @@
     padding: 1em;
     display: flex;
     font-family:Arial, Helvetica, sans-serif;
-    gap: 12px;
+    gap: 1em;
+    flex-direction: column;
     
 }
 
@@ -19,8 +20,20 @@
     
 }
 
+.freq-ask .search {
+    margin: 0.5em auto;
+}
 
+.search-topics {
+    max-height: 40em;
+    overflow-y: scroll;
+}
 
+.faq {
+    border-radius: 12px;
+    padding: 0.5em;
+    margin: 0.5em 0;
+}
 
 
 .feedback{
@@ -33,6 +46,17 @@
 
 }
 
+.feedback input[type = 'text'], .feedback input[type='email'] {
+    margin: 0.5em 0;
+    width: 100%;
+    
+}
+
+.feedback div {
+    max-width: fit-content;
+    margin: auto;
+}
+
 .h4, .logo{
     font-size: 20;
     justify-content: center;
@@ -43,13 +67,45 @@
 
 .staff{
     
-    flex: 1 ;
     padding: 0.5em;
     background-color: #7f7f7f;
     border-radius: 12px;
     text-align: center;
     justify-content: center;
     
+}
+
+@media (min-width: 800px) {
+
+    .main-content {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .main-content > div {
+        width: 50%;
+    }
+
+    .main-content > div:last-child {
+        width: 100%;
+    }
+
+}
+
+@media (min-width: 1200px) {
+
+    .main-content {
+        flex-wrap: nowrap;
+    }
+
+    .main-content > div {
+        width: 40%;
+    }
+
+    .main-content > div:last-child {
+        width: 20%;
+    }
+
 }
 
 

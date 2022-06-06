@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2022 at 04:59 PM
+-- Generation Time: Jun 05, 2022 at 02:59 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -82,6 +82,46 @@ INSERT INTO `borrow` (`BorrowID`, `UserID`, `StaffID`, `BookID`, `DateOfBorrow`,
 (3, 3, 3, 3, '2022-05-12', '2022-05-20', '2022-05-22'),
 (4, 4, 1, 3, '2022-05-13', NULL, '2022-05-23'),
 (5, 5, 1, 1, '2022-05-23', NULL, '2022-06-02');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `feedback_db`
+--
+
+CREATE TABLE `feedback_db` (
+  `feedback_ID` int(15) NOT NULL,
+  `feedback_type` varchar(15) DEFAULT NULL,
+  `feedback` text DEFAULT NULL,
+  `firstname` varchar(15) DEFAULT NULL,
+  `lastname` varchar(15) DEFAULT NULL,
+  `email` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `freq_ask_questions`
+--
+
+CREATE TABLE `freq_ask_questions` (
+  `QuestionID` int(1) NOT NULL,
+  `Question` text NOT NULL,
+  `Answer` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `freq_ask_questions`
+--
+
+INSERT INTO `freq_ask_questions` (`QuestionID`, `Question`, `Answer`) VALUES
+(1, 'What exactly can the librarian help me with?', 'Librarians will help you to find materials on our shelves. It also helps to find information online in the databases and can advise you about the relevance of the material that you may need from the library.\r\n\r\n'),
+(2, 'How are the books organized in the library?', 'Books are organized by a number code of the book, which tells the location of the book on the shelf. The book is arranged alphabetically with corresponding subjects.\r\n\r\n'),
+(3, '3Do all books can be available in electronic versions?', 'Not all books have a print copy of the purchase. Please see the librarian regarding the book information.'),
+(4, 'What are the library hours?', 'The library was only open from 8:00 AM to 9:00 PM on weekdays while 10:00 PM to 5:00 during weekends '),
+(5, 'Why I am getting no data regarding the user information?', 'The user that you want to look for was not registered in the library database. Please see the in-charge librarian for more detailed information.'),
+(6, 'Where do I check books out?', 'Books may be checkout, however, not all books can be. Please see the in-charge librarian for more details even if the book was already checked out.'),
+(7, 'How does the library notify me when I have an overdue book?', 'When an item is overdue, you will be notified with a paper notice in your email. Keep in mind that most items can be renewed. However,  all items often cannot be renewed and must be returned on time');
 
 -- --------------------------------------------------------
 
@@ -219,6 +259,18 @@ ALTER TABLE `borrow`
   ADD KEY `fk_borrow_UserID` (`UserID`);
 
 --
+-- Indexes for table `feedback_db`
+--
+ALTER TABLE `feedback_db`
+  ADD PRIMARY KEY (`feedback_ID`);
+
+--
+-- Indexes for table `freq_ask_questions`
+--
+ALTER TABLE `freq_ask_questions`
+  ADD PRIMARY KEY (`QuestionID`);
+
+--
 -- Indexes for table `rl_book_author`
 --
 ALTER TABLE `rl_book_author`
@@ -257,6 +309,18 @@ ALTER TABLE `book`
 --
 ALTER TABLE `borrow`
   MODIFY `BorrowID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `feedback_db`
+--
+ALTER TABLE `feedback_db`
+  MODIFY `feedback_ID` int(15) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `freq_ask_questions`
+--
+ALTER TABLE `freq_ask_questions`
+  MODIFY `QuestionID` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `staff`

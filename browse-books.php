@@ -176,7 +176,7 @@
             <?php foreach ($books as $book): ?>
                 <div class="catalog-item">
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                        <h3><?php echo htmlspecialchars($book['Title']); ?></h3>
+                        <a href="bookpage.php?ID=<?php echo htmlspecialchars($book['BookID']); ?>"><h3><?php echo htmlspecialchars($book['Title']); ?></h3></a>
                         <h5>by <?php echo implode(', ', $book['Authors']) ?> (<?php echo htmlspecialchars($book['PubDate']); ?>)</h5>
                         <p>
                             <?php echo htmlspecialchars($book['Overview']); ?>
