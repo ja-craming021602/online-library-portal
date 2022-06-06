@@ -21,7 +21,7 @@
                         <div class="book">
                         <img src="img/icons/cover-page.png" alt="book icon" class="book-img">
                         <div class="book-text">
-                        <p2><?php echo $recentTitle; ?></p2>
+                        <a href="bookpage.php?ID=<?php echo htmlspecialchars($recentID) ?>"><p2><?php echo $recentTitle; ?></p2></a>
                         <p> by
                             <?php
                             $glue = '';
@@ -72,7 +72,7 @@
                         $topTitle = $top['Title']; ?>
                         <div class="top-book">
                         <img src="img/icons/cover-page.png" alt="book icon" width="140px" height="190px">
-                        <p> <?php echo $topTitle; ?> </p>
+                        <a href="bookpage.php?ID=<?php echo htmlspecialchars($top['BookID']); ?>"><p> <?php echo $topTitle; ?> </p></a>
                         </div>
                     <?php
                     }?>

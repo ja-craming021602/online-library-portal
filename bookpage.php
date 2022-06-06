@@ -4,35 +4,50 @@ include('utils/connection.php');
 
 if(isset($_GET['ID'])){
     $ID = mysqli_real_escape_string($conn, $_GET['ID']);
-    $sql = "SELECT * FROM book WHERE BookID = '$ID'";
-    $sql2 = "SELECT * FROM rl_book_genre WHERE BookID = '$ID'";
-    $sql1 = "SELECT * FROM rl_book_author WHERE BookID = '$ID'";
-    $sql3 = "SELECT DateReturned FROM borrow WHERE BookID = '$ID'";
+    $query_book = "SELECT * FROM book WHERE BookID = '$ID'";
+    $query_genre = "SELECT Genre FROM rl_book_genre WHERE BookID = '$ID'";
+    $query_author = "SELECT Author FROM rl_book_author WHERE BookID = '$ID'";
+    $query_borrow = "SELECT DateReturned FROM borrow WHERE BookID = '$ID'";
     
-    $result1 = mysqli_query($conn, $sql1);
-    $result2 = mysqli_query($conn, $sql2);
-    $result = mysqli_query($conn, $sql);
-    $result3 = mysqli_query($conn, $sql3);
+    $book_result = mysqli_query($conn, $query_book);
+    $genre_result = mysqli_query($conn, $query_genre);
+    $author_result = mysqli_query($conn, $query_author);
+    $borrow_result = mysqli_query($conn, $query_borrow);
 
-    $topRated = mysqli_fetch_array($result);
-    $trial = mysqli_fetch_all($result1, MYSQLI_ASSOC);
-    $genre2 = mysqli_fetch_all($result2, MYSQLI_ASSOC);
-    $borrow = mysqli_fetch_array($result3,MYSQLI_ASSOC);
+    $book_details = mysqli_fetch_assoc($book_result);
+    $genres = mysqli_fetch_all($genre_result, MYSQLI_ASSOC);
+    $authors = mysqli_fetch_all($author_result, MYSQLI_ASSOC);
+    $borrow = mysqli_fetch_all($borrow_result, MYSQLI_ASSOC);
+    
+    foreach ($authors as $author) {
+        $book_details['Authors'][] = $author['Author'];
+    }
+    foreach ($genres as $genre) {
+        $book_details['Genres'][] = $genre['Genre'];
+    }
 
-    $trees = array_pop($borrow);
+    if (!$borrow) {
+        $available = true;
+    } else {
+        $temp = array_pop($borrow);
+        if ($temp['DateReturned'])
+            $available = true;
+        else
+            $available = false;
+    }
 
-    mysqli_free_result($result);
-    mysqli_free_result($result1);
-    mysqli_free_result($result2);
-    mysqli_free_result($result3);
+    mysqli_free_result($book_result);
+    mysqli_free_result($genre_result);
+    mysqli_free_result($author_result);
+    mysqli_free_result($borrow_result);
 
 }
 
 
 ?>
 <?php include('templates/head.php') ?>
-    <title>Book Page</title>
-    <link rel="stylesheet" href="css/bookpageTrial.css">
+    <title><?php echo htmlspecialchars($book_details['Title']); ?></title>
+    <link rel="stylesheet" href="css/bookpage.css">
 <?php include('templates/nav.php') ?>     
 
     <?php if(isset($_GET['ID'])): ?>
@@ -40,9 +55,9 @@ if(isset($_GET['ID'])){
         <div class="sidebarL"> 
             <div class="pictureBar">
                 <img src="img/icons/cover-page.png" alt="Sample volume 3">
-                <button class="btn blue clickable">
+                <button class="btn blue">
                     <?php 
-                    if($trees == NULL){
+                    if(!$available){
                         echo "Unavailable"; 
                     }else{
                         echo "Available in Library";
@@ -62,12 +77,10 @@ if(isset($_GET['ID'])){
         <div class="mainBar">
             <div class="titleBar">
                 <div class="mainTitle">
-                    <p10><?php echo $topRated['Title'];?></p10>
+                    <p10><?php echo $book_details['Title'];?></p10>
                     <p9>
                        <p9>By</p9>
-                    <?php foreach($trial as $try){ ?>
-                    <?php echo htmlspecialchars($try['Author']); ?>
-                    <?php }?>
+                    <?php echo htmlspecialchars(implode(', ', $book_details['Authors'])); ?>
                     </p9>
                 </div>
                 <div class="hyperlinks">
@@ -80,14 +93,14 @@ if(isset($_GET['ID'])){
                 <p3>Publisher</p3>
                 <p3>Language</p3>
                 <p3>Pages </p3>
-                <p2><?php echo $topRated['PubDate'];?> </p2>
-                <p2><?php echo $topRated['Publisher'];?> </p2>
-                <p2><?php echo $topRated['Language'];?> </p2>
-                <p2><?php echo $topRated['PageCount'];?> </p2>
+                <p2><?php echo $book_details['PubDate'];?> </p2>
+                <p2><?php echo $book_details['Publisher'];?> </p2>
+                <p2><?php echo $book_details['Language'];?> </p2>
+                <p2><?php echo $book_details['PageCount'];?> </p2>
             </div>
             <div class="overBar">
                 <p3>Overview</p3>
-                <p2><?php echo $topRated['Overview'];?></p2>
+                <p2><?php echo $book_details['Overview'];?></p2>
             </div>
         </div>
 <!------------------------------------MTRIAL---------------------------------------------->
@@ -97,14 +110,12 @@ if(isset($_GET['ID'])){
             </div>
             <div class="isbnBar">
                 <p3>ISBN</p3>
-                <p2><?php echo $topRated['ISBN'];?></p2>
+                <p2><?php echo $book_details['ISBN'];?></p2>
             </div>
             <div class="genreBar">
                 <p3>Genre</p3>
-                <?php if($genre2): ?>
-                <?php foreach($genre2 as $try2){ ?>
-                    <p2><?php echo htmlspecialchars($try2['Genre']) ;?></p2>
-                <?php }?>
+                <?php if($book_details['Genres']): ?>
+                <?php echo htmlspecialchars(implode(', ', $book_details['Genres'])) ?>
 
                 <?php else: ?>
                     <p3> None</p3>
@@ -114,7 +125,7 @@ if(isset($_GET['ID'])){
             <div class="ratingBar">
                 <p3>User Ratings</p3>
                 <div class="row">
-                <p2><?php echo $topRated['Rating'];?></p2>
+                <p2><?php echo $book_details['Rating'];?></p2>
                 </div>
             </div>
         </div>
