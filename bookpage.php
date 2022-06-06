@@ -82,9 +82,9 @@ if (isset($_GET['ID'])) {
                     </p9>
                 </div>
                 <div class="hyperlinks">
-                    <a class="one" href="https://i.redd.it/29pgg3ifyvp21.png">Borrow history</a>
+                    <a class="one" href="user-history.php">Borrow history</a>
                     <!---- link for USER HISTORY -->
-                    <a class="two" href="https://c.tenor.com/qQk6DhSV1qUAAAAd/anime-grand.gif">Edit</a>
+                    <a class="two" href="dashboard.php?edit-book=<?php echo htmlspecialchars($book_details['BookID']); ?>">Edit</a>
                     <!---- link for DASHBOARD -->
                 </div>
             </div>

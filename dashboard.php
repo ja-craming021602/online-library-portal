@@ -17,6 +17,17 @@ if (isset($_POST['new-borrow'])) {
     unset($_SESSION['just-returned-book']);
 }
 
+// check if edit was clicked on a book page
+if (isset($_GET['edit-book']))
+    $_POST['book-to-edit'] = $_GET['edit-book'];
+
+// check if there was invalid access
+if (isset($_SESSION['invalid-access'])) {
+    $message = $_SESSION['invalid-access'];
+    unset($_SESSION['invalid-access']);
+    echo "<script>alert('$message')</script>";
+}
+
 // elseif (isset($_SESSION['just-searched-book'])) {
 //     $book_to_search = $_SESSION['just-searched-book'];
 //     $filter = " WHERE Title LIKE '%".mysqli_real_escape_string($conn,  $book_to_search)."%'";
@@ -40,6 +51,12 @@ elseif (isset($_POST['book-to-edit'])) {
     $result = mysqli_query($conn, $query);
     $book_to_edit = mysqli_fetch_assoc($result);
     mysqli_free_result($result);
+
+    // check if bookID is invalid (may happen since the code can trigger from a GET)
+    if (!$book_to_edit) {
+        $_SESSION['invalid-access'] = 'You are trying to access a book that is not in the database!';
+        header("Location: ${_SERVER['PHP_SELF']}");
+    }
 
     $query = "SELECT Author FROM rl_book_author WHERE BookID=$book_id";
     $result = mysqli_query($conn, $query);
