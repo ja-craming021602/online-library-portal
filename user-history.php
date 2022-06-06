@@ -60,15 +60,14 @@
 <?php include('templates/nav.php') ?>
 
 
-<<<<<<< HEAD
   <div class="main-content">
         <!-- Main page content -->
        
     <div class = "user-info">
-=======
+
 <div class="main-content">
     <!-- Main page content -->
->>>>>>> upstream/main
+
 
     <div class="user-area">
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET" class="card user-search">
@@ -143,22 +142,9 @@
 
 
 
-<<<<<<< HEAD
-    <div class="sort">
-            <h3>Sort by</h3> 
-                    <select id="select1">
-                    <option value="value1">Alphabetically</option>
-                    <option value="value2"> Date Borrowed</option>
-                    <option value="value3"> Date Returned</option>
-            </select>
-
-            <h3> 3 items found </h3>
-                 
-    </div>
 
 </div><!-- end of main content -->
-=======
->>>>>>> upstream/main
+
 
 
 <?php include('templates/footer.php') ?>
