@@ -4,7 +4,7 @@
     $db = $conn;
 
     // top rated books
-    $topRatedsql = 'SELECT Title, Rating FROM book ORDER BY Rating DESC LIMIT 5';
+    $topRatedsql = 'SELECT BookID, Title, Rating FROM book ORDER BY Rating DESC LIMIT 5';
     $topRatedResult = mysqli_query($db, $topRatedsql);
     $topRated = mysqli_fetch_all($topRatedResult, MYSQLI_ASSOC);
 
