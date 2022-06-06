@@ -52,6 +52,89 @@ if (isset($_POST['borrow-book'])) {
     header('Location: dashboard.php');
 }
 
+/* create filters */
+
+if (isset($_GET['clear-filter'])) {
+    unset($_SESSION['filters']);
+    unset($_GET['clear-filter']);
+}
+
+if (isset($_GET['filter-date'])) {
+    if (isset($_SESSION['filters']['PubDate']) && $_GET['filter-date'] == $_SESSION['filters']['PubDate'])
+        unset($_SESSION['filters']['PubDate']);
+    else
+        $_SESSION['filters']['PubDate'] = $_GET['filter-date'];
+    
+    unset($_GET['filter-date']);
+}
+
+if (isset($_GET['filter-genre'])) {
+    if (isset($_SESSION['filters']['Genre']) && $_GET['filter-genre'] == $_SESSION['filters']['Genre'])
+        unset($_SESSION['filters']['Genre']);
+    else
+        $_SESSION['filters']['Genre'] = $_GET['filter-genre'];
+
+    unset($_GET['filter-genre']);
+}
+
+if (isset($_GET['filter-lang'])) {
+    if (isset($_SESSION['filters']['Language']) && $_GET['filter-lang'] == $_SESSION['filters']['Language'])
+        unset($_SESSION['filters']['Language']);
+    else
+        $_SESSION['filters']['Language'] = $_GET['filter-lang'];
+
+    unset($_GET['filter-lang']);
+}
+
+if (isset($_SESSION['filters']) && empty($_SESSION['filters']))
+    unset($_SESSION['filters']);
+
+$filter = '';
+if (isset($_SESSION['filters'])) {
+
+    $glue = '';
+    foreach ($_SESSION['filters'] as $key => $value) {
+        if ($key == 'Genre')
+            continue;
+        
+        $key = mysqli_real_escape_string($conn, $key);
+        $value = mysqli_real_escape_string($conn, $value);
+
+        $filter = $filter."$glue $key='$value'";
+        $glue = ' AND';
+    }
+}
+
+// filters to display
+$query = 'SELECT DISTINCT PubDate FROM book';
+$result = mysqli_query($conn, $query);
+$pub_dates = mysqli_fetch_all($result, MYSQLI_ASSOC);
+mysqli_free_result($result);
+
+$query = 'SELECT DISTINCT Genre FROM rl_book_genre';
+$result = mysqli_query($conn, $query);
+$genres = mysqli_fetch_all($result, MYSQLI_ASSOC);
+mysqli_free_result($result);
+
+$query = 'SELECT DISTINCT Language FROM book';
+$result = mysqli_query($conn, $query);
+$languages = mysqli_fetch_all($result, MYSQLI_ASSOC);
+mysqli_free_result($result);
+
+foreach ($pub_dates as $pub_date)
+    $filter_array['Release date'][] = $pub_date['PubDate'];
+foreach ($genres as $genre)
+    $filter_array['Genre'][] = $genre['Genre'];
+foreach ($languages as $language)
+    $filter_array['Language'][] = $language['Language'];
+
+// sort the filters
+rsort($filter_array['Release date']);
+sort($filter_array['Genre']);
+sort($filter_array['Language']);
+
+/* end of creating filters */
+
 $search_entry = "";
 if (isset($_GET['book-search-btn'])) {
     $search_entry = mysqli_real_escape_string($conn, $_GET['book-search']);
@@ -69,7 +152,12 @@ $offset = $offset + ($current_page - 1) * $books_per_page;
 $query = "SELECT BookID, Title, Overview, PubDate FROM book";
 if ($search_entry) {
     $query = $query . " WHERE Title LIKE '%$search_entry%'";
+    if (isset($_SESSION['filters']['PubDate']) || isset($_SESSION['filters']['Language']))
+        $query = $query . " AND";
+} elseif (isset($_SESSION['filters']['PubDate']) || isset($_SESSION['filters']['Language'])) {
+    $query = $query . " WHERE";
 }
+$query = $query . $filter;
 $sort = mysqli_real_escape_string($conn, $_SESSION['browse-book-sort']);
 $order = mysqli_real_escape_string($conn, $_SESSION['browse-book-order']);
 $query = $query . " ORDER BY $sort $order";
@@ -80,8 +168,6 @@ $books = mysqli_fetch_all($result, MYSQLI_ASSOC);
 mysqli_free_result($result);
 
 $num_of_results = count($books);
-$max_page = ceil($num_of_results / $books_per_page);
-$max_page = $max_page ? $max_page : 1;
 
 // further filter the returned results
 $query = $query . " LIMIT $books_per_page OFFSET $offset";
@@ -90,8 +176,24 @@ $books = mysqli_fetch_all($result, MYSQLI_ASSOC);
 mysqli_free_result($result);
 
 // include authors to $books array
-foreach ($books as &$book) {
+foreach ($books as $key => &$book) {
     $bookID = $book['BookID'];
+
+    // filter out if not of the filtered genre
+    if (isset($_SESSION['filters']['Genre'])) {
+        $genre = mysqli_real_escape_string($conn, $_SESSION['filters']['Genre']);
+        $query = "SELECT Genre FROM rl_book_genre WHERE BookID=$bookID AND Genre='$genre'";
+        $result = mysqli_query($conn, $query);
+        $exists = mysqli_fetch_assoc($result);
+        mysqli_free_result($result);
+
+        if (empty($exists)) {
+            unset($books[$key]);
+            $num_of_results -= 1;
+            continue;
+        }
+    }
+
     $query = "SELECT Author FROM rl_book_author WHERE BookID=$bookID";
     $result = mysqli_query($conn, $query);
     $authors = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -121,8 +223,14 @@ foreach ($books as &$book) {
 
 unset($book);
 
+$max_page = ceil($num_of_results / $books_per_page);
+$max_page = $max_page ? $max_page : 1;
+
 mysqli_close($conn);
 // end of retrieving data from server, all needed data stored in $books array
+
+// store the get variables
+$get = htmlspecialchars(http_build_query($_GET));
 ?>
 
 <?php include('templates/head.php') ?>
@@ -150,24 +258,32 @@ mysqli_close($conn);
             <input type="checkbox" id="sort">
             <label for="sort" class="unselectable"><i class="fa-solid fa-angle-right"></i><i class="fa-solid fa-angle-down"></i>Sort</label>
             <ul>
-                <li><a href="browse-books.php?sort-by=DateAdded&<?php echo htmlspecialchars(http_build_query($_GET)); ?>" <?php if ($_SESSION['browse-book-sort'] == 'DateAdded') echo "class='active'"; ?>>Date Added</a></li>
-                <li><a href="browse-books.php?sort-by=Rating&<?php echo htmlspecialchars(http_build_query($_GET)); ?>" <?php if ($_SESSION['browse-book-sort'] == 'Rating') echo "class='active'"; ?>>Popularity</a></li>
-                <li><a href="browse-books.php?sort-by=PubDate&<?php echo htmlspecialchars(http_build_query($_GET)); ?>" <?php if ($_SESSION['browse-book-sort'] == 'PubDate') echo "class='active'"; ?>>Release Date</a></li>
-                <li><a href="browse-books.php?sort-by=Title&<?php echo htmlspecialchars(http_build_query($_GET)); ?>" <?php if ($_SESSION['browse-book-sort'] == 'Title') echo "class='active'"; ?>>Title</a></li>
+                <li><a href="browse-books.php?sort-by=DateAdded&<?php echo $get; ?>" <?php if ($_SESSION['browse-book-sort'] == 'DateAdded') echo "class='active'"; ?>>Date Added</a></li>
+                <li><a href="browse-books.php?sort-by=Rating&<?php echo $get; ?>" <?php if ($_SESSION['browse-book-sort'] == 'Rating') echo "class='active'"; ?>>Popularity</a></li>
+                <li><a href="browse-books.php?sort-by=PubDate&<?php echo $get; ?>" <?php if ($_SESSION['browse-book-sort'] == 'PubDate') echo "class='active'"; ?>>Release Date</a></li>
+                <li><a href="browse-books.php?sort-by=Title&<?php echo $get; ?>" <?php if ($_SESSION['browse-book-sort'] == 'Title') echo "class='active'"; ?>>Title</a></li>
             </ul>
         </div>
         <div class="filter drop-menu-click">
             <input type="checkbox" id="filter">
             <label for="filter" class="unselectable"><i class="fa-solid fa-angle-right"></i><i class="fa-solid fa-angle-down"></i>Filter</label>
             <ul>
+                <?php if (isset($_SESSION['filters'])): ?>
+                    <li><a href="browse-books.php?clear-filter=&<?php echo $get; ?>">Remove Filters</a></li>
+                <?php endif; ?>
                 <li>
                     <div class="drop-menu-click">
                         <input type="checkbox" id="release-date">
                         <label for="release-date" class="unselectable"><i class="fa-solid fa-angle-right"></i><i class="fa-solid fa-angle-down"></i>Release date</label>
                         <ul>
-                            <li><a href="#">Recent</a></li>
-                            <li><a href="#">Past Year</a></li>
-                            <li><a href="#">Previous Releases</a></li>
+                            <?php foreach ($filter_array['Release date'] as $release_date){
+                                $active = '';
+                                if (isset($_SESSION['filters']['PubDate']) && $_SESSION['filters']['PubDate'] == $release_date) {
+                                    $active = " class = 'active'";
+                                }
+                                $release_date = htmlspecialchars($release_date);
+                                echo "<li><a href='browse-books.php?filter-date=$release_date&$get'$active>$release_date</a></li>";
+                            } ?>
                         </ul>
                     </div>
                 </li>
@@ -176,11 +292,14 @@ mysqli_close($conn);
                         <input type="checkbox" id="genre">
                         <label for="genre" class="unselectable"><i class="fa-solid fa-angle-right"></i><i class="fa-solid fa-angle-down"></i>Genre</label>
                         <ul>
-                            <li><a href="#">Nonfiction</a></li>
-                            <li><a href="#">Fiction</a></li>
-                            <li><a href="#">Science</a></li>
-                            <li><a href="#">Business</a></li>
-                            <li><a href="#">Romance</a></li>
+                            <?php foreach ($filter_array['Genre'] as $genre){
+                                $active = '';
+                                if (isset($_SESSION['filters']['Genre']) && $_SESSION['filters']['Genre'] == $genre) {
+                                    $active = " class = 'active'";
+                                }
+                                $genre = htmlspecialchars($genre);
+                                echo "<li><a href='browse-books.php?filter-genre=$genre&$get'$active>$genre</a></li>";
+                            } ?>
                         </ul>
                     </div>
                 </li>
@@ -189,9 +308,14 @@ mysqli_close($conn);
                         <input type="checkbox" id="language">
                         <label for="language" class="unselectable"><i class="fa-solid fa-angle-right"></i><i class="fa-solid fa-angle-down"></i>Language</label>
                         <ul>
-                            <li><a href="#">English</a></li>
-                            <li><a href="#">Filipino</a></li>
-                            <li><a href="#">Cebuano</a></li>
+                            <?php foreach ($filter_array['Language'] as $language){
+                                $active = '';
+                                if (isset($_SESSION['filters']['Language']) && $_SESSION['filters']['Language'] == $language) {
+                                    $active = " class = 'active'";
+                                }
+                                $language = htmlspecialchars($language);
+                                echo "<li><a href='browse-books.php?filter-lang=$language&$get'$active>$language</a></li>";
+                            } ?>
                         </ul>
                     </div>
                 </li>
