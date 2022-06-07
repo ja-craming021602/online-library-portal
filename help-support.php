@@ -1,18 +1,18 @@
 <?php
-    include('utils/connection.php');
+include('utils/connection.php');
 
-    $query = 'SELECT Question, Answer FROM freq_ask_questions';
+$query = 'SELECT Question, Answer FROM freq_ask_questions';
 
-    if (isset($_POST['faq-search'])) {
-        $search = mysqli_real_escape_string($conn, $_POST['search-item']);
-        $query = $query." WHERE Question LIKE '%$search%'";
-    }
+if (isset($_POST['faq-search'])) {
+    $search = mysqli_real_escape_string($conn, $_POST['search-item']);
+    $query = $query . " WHERE Question LIKE '%$search%'";
+}
 
-    $result = mysqli_query($conn, $query);
-    $faqs = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    mysqli_free_result($result);
+$result = mysqli_query($conn, $query);
+$faqs = mysqli_fetch_all($result, MYSQLI_ASSOC);
+mysqli_free_result($result);
 
-    mysqli_close($conn);
+mysqli_close($conn);
 ?>
 
 
@@ -43,7 +43,7 @@
 
         <div class="search-topics">
 
-            <?php foreach ($faqs as $faq): ?>
+            <?php foreach ($faqs as $faq) : ?>
 
                 <div class="faq black">
                     <h1><?php echo htmlspecialchars($faq['Question']); ?></h1>
@@ -87,9 +87,9 @@
 
             <h3>Please tell us how to get in touch with you.</h3>
 
-            <input type="text" name ="firstname" placeholder="First Name" required>
-            <input type="text" name ="lastname" placeholder="Last Name" required>
-            <input type="email" name ="email" placeholder="Email Address" required>
+            <input type="text" name="firstname" placeholder="First Name" required>
+            <input type="text" name="lastname" placeholder="Last Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
             <div><button class="btn black clickable" name="info">Submit</button></div>
 
 

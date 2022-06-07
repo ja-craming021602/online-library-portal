@@ -2,6 +2,12 @@
 session_start();
 include("utils/connection.php");
 
+if (isset($_SESSION['illegal-access'])) {
+    $message = $_SESSION['illegal-access'];
+    unset($_SESSION['illegal-access']);
+    echo "<script>alert('$message')</script>";
+}
+
 if (isset($_POST['login'])) {
     $staffID    = $_POST['staffID'];
     $password = $_POST['password'];

@@ -17,10 +17,4 @@ if(isset($_POST['info'] )){
 mysqli_close($conn);
 header('Location: ../help-support.php');
 
-
-
-
-
-
-
 ?>
